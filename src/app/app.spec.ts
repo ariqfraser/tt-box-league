@@ -15,7 +15,7 @@ describe('App', () => {
     });
 
     it('should create the app', () => {
-        expect(component).toBeFalsy();
+        expect(component).toBeTruthy();
     });
 
     it('should render title', () => {
