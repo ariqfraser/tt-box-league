@@ -1,7 +1,11 @@
 module.exports = {
     preset: 'jest-preset-angular',
     setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
-    testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/dist/'],
+    testPathIgnorePatterns: [
+        '<rootDir>/node_modules/',
+        '<rootDir>/dist/',
+        '<rootDir>/src/environments/',
+    ],
     testEnvironment: 'jsdom',
     coveragePathIgnorePatterns: ['/node_modules/'],
     collectCoverageFrom: [
@@ -10,6 +14,7 @@ module.exports = {
         '!src/main.ts',
         '!src/index.html',
         '!src/**/*.{config,routes}.ts',
+        '!src/environments/**',
     ],
     moduleNameMapper: {
         '@app/(.*)': '<rootDir>/src/app/$1',
