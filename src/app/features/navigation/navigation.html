@@ -1,8 +1,13 @@
 <router-outlet />
 <nav class="nav-container">
-    <button>
+    <button routerLink="/dashboard" routerLinkActive="active">
         <app-icon>dashboard</app-icon>
     </button>
-    <button><app-icon>stairs</app-icon></button>
-    <button><app-icon>leaderboard</app-icon></button>
+    <button routerLink="/league" routerLinkActive="active"><app-icon>stairs</app-icon></button>
+    <button routerLink="/leaderboard" routerLinkActive="active">
+        <app-icon>leaderboard</app-icon>
+    </button>
+    <button routerLink="/account" routerLinkActive="active">
+        <app-icon>account_circle</app-icon>
+    </button>
 </nav>

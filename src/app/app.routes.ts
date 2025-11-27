@@ -1,4 +1,31 @@
 import { Routes } from '@angular/router';
 import { Navigation } from '@app/features/navigation/navigation';
 
-export const routes: Routes = [{ path: '', component: Navigation, children: [] }];
+export const routes: Routes = [
+    {
+        path: '',
+        component: Navigation,
+        children: [
+            { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
+            {
+                path: 'dashboard',
+                loadComponent: () =>
+                    import('@features/dashboard/dashboard').then((m) => m.Dashboard),
+            },
+            {
+                path: 'league',
+                loadComponent: () =>
+                    import('@features/box-league/box-league').then((m) => m.BoxLeague),
+            },
+            {
+                path: 'leaderboard',
+                loadComponent: () =>
+                    import('@features/leaderboard/leaderboard').then((m) => m.Leaderboard),
+            },
+            {
+                path: 'account',
+                loadComponent: () => import('@features/account/account').then((m) => m.Account),
+            },
+        ],
+    },
+];

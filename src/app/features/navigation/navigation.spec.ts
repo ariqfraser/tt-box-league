@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Navigation } from './navigation';
+import { ActivatedRoute } from '@angular/router';
 
 describe('Navigation', () => {
     let component: Navigation;
@@ -9,6 +10,7 @@ describe('Navigation', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [Navigation],
+            providers: [{ provide: ActivatedRoute, useValue: {} }],
         }).compileComponents();
 
         fixture = TestBed.createComponent(Navigation);

@@ -16,8 +16,13 @@
         background: none;
         border: none;
         padding: 1rem;
-
         color: var(--mat-sys-on-surface);
+        transition: color 0.3s ease;
+
+        &.active {
+            color: var(--mat-sys-primary);
+        }
+
         cursor: pointer;
 
         app-icon {
