@@ -18,4 +18,11 @@ export class Log {
         }
         console.info(`%c[INFO]%c ${message}`, 'color: lightgreen; font-size: 1em;', data);
     }
+
+    static warn(message: string, data?: unknown): void {
+        if (environment.isProduction) {
+            return;
+        }
+        console.info(`%c[WARN]%c ${message}`, 'color: lightorange; font-size: 1em;', data);
+    }
 }
