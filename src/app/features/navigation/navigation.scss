@@ -1,0 +1,27 @@
+@import 'theme';
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    width: fit-content;
+    margin-inline: auto;
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--mat-sys-surface-container-highest);
+    border-radius: $r1;
+
+    button {
+        background: none;
+        border: none;
+        padding: 1rem;
+
+        color: var(--mat-sys-on-surface);
+        cursor: pointer;
+
+        app-icon {
+            --size: 2rem;
+        }
+    }
+}
