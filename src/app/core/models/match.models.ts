@@ -9,5 +9,7 @@ export interface Match {
     p2Id: string;
     p1Score: number;
     p2Score: number;
-    timestamp: Timestamp;
+    timestamp: Timestamp | null;
+    season: number;
+    box: number;
 }

@@ -1,0 +1,46 @@
+@use 'theme' as *;
+
+.box {
+    display: grid;
+    grid-template-columns: repeat(var(--player-count), 1fr);
+    grid-auto-rows: 1fr;
+    gap: 0.5rem;
+}
+
+.cell {
+    // border: 1px solid var(--mat-sys-secondary);
+    border-radius: $r-m;
+
+    &.border-bottom {
+        border-bottom: 1px solid var(--mat-sys-on-surface);
+    }
+
+    &.border-right {
+        border-right: 1px solid var(--mat-sys-on-surface);
+    }
+
+    &:not(.header) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:not(.empty) {
+            background-color: var(--mat-sys-surface);
+            &:first-of-type {
+                background-color: transparent;
+            }
+        }
+    }
+
+    &.header {
+        font-weight: bold;
+        padding: 0.5rem;
+        border-radius: 0;
+    }
+
+    &.pending {
+        span {
+            opacity: 0.75;
+        }
+    }
+}
