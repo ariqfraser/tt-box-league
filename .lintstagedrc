@@ -1,4 +1,5 @@
 {
     "**/*.{ts,js,json,css,scss,html}": ["prettier --write"],
-    "**/*.{ts,scss,html,json}": ["cspell --no-progress --no-summary"]
+    "**/*.{ts,scss,html,json}": ["cspell --no-progress --no-summary"],
+    "**/*.{ts,js}": ["npm run lint" ]
 }
