@@ -1,7 +1,23 @@
 {
     "version": "0.2",
     "language": "en",
-    "words": ["firebase", "Firebase", "firestore", "Firestore", "lightgreen", "lightorange"],
+    "languageSettings": [
+        {
+            "languageId": "*",
+            "locale": "en-GB"
+        }
+    ],
+    "words": [
+        "firebase",
+        "Firebase",
+        "firestore",
+        "Firestore",
+        "lightgreen",
+        "lightorange",
+        "ariq",
+        "premade",
+        "organise"
+    ],
     "ignorePaths": [
         "node_modules/**",
         "dist/**",

@@ -1,0 +1,22 @@
+<div class="label-section">
+    <label [for]="name()">{{ label() }}</label>
+</div>
+
+<input
+    #inputElement
+    [id]="name()"
+    [name]="name()"
+    [placeholder]="placeholder()"
+    [type]="type()"
+    [value]="value"
+    (input)="onInputChange($event)"
+    (blur)="onInputBlur()" />
+
+@if (control?.hasError('required') && control?.touched) {
+    <p class="error">This field is required</p>
+}
+@if (control?.hasError('minlength') && control?.touched) {
+    <p class="error">
+        Password must be at least {{ control?.getError('minlength')?.requiredLength }} characters
+    </p>
+}
