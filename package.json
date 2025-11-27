@@ -12,7 +12,8 @@
         "lintstaged": "lint-staged",
         "prettier": "prettier",
         "lint": "ng lint",
-        "emulators": "firebase emulators:start"
+        "emulators": "firebase emulators:start",
+        "firebase": "firebase"
     },
     "private": true,
     "dependencies": {

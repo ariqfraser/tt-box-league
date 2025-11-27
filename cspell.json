@@ -16,7 +16,9 @@
         "lightorange",
         "ariq",
         "premade",
-        "organise"
+        "organise",
+        "firebasestorage",
+        "firebaseapp"
     ],
     "ignorePaths": [
         "node_modules/**",
