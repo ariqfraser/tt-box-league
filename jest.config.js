@@ -5,6 +5,7 @@ module.exports = {
         '<rootDir>/node_modules/',
         '<rootDir>/dist/',
         '<rootDir>/src/environments/',
+        '<rootDir>/src/testing/',
     ],
     testEnvironment: 'jsdom',
     coveragePathIgnorePatterns: ['/node_modules/'],
@@ -15,6 +16,7 @@ module.exports = {
         '!src/index.html',
         '!src/**/*.{config,routes}.ts',
         '!src/environments/**',
+        '!src/testing/**',
     ],
     moduleNameMapper: {
         '@app/(.*)': '<rootDir>/src/app/$1',
