@@ -4,6 +4,8 @@
     "singleQuote": true,
     "printWidth": 100,
     "semi": true,
+    "bracketSameLine": true,
+    "htmlWhitespaceSensitivity": "ignore",
     "overrides": [
         {
             "files": "*.html",
