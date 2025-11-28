@@ -18,7 +18,11 @@
         "premade",
         "organise",
         "firebasestorage",
-        "firebaseapp"
+        "firebaseapp",
+        "testuser",
+        "ariqfraser",
+        "existinguser",
+        "wrongcode"
     ],
     "ignorePaths": [
         "node_modules/**",

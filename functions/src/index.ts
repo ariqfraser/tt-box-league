@@ -1,8 +1,8 @@
-import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
+import { register } from './register/register.function';
 
-/**
- * Example function - replace with your actual functions
- */
-export const helloWorld = functions.https.onRequest((request, response) => {
-    response.send('Hello from Firebase!');
-});
+// Initialize Firebase Admin SDK
+admin.initializeApp();
+
+// Export functions
+export { register };

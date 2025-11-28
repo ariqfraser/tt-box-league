@@ -20,7 +20,7 @@
         "singleProjectMode": true
     },
     "functions": {
-        "source": "functions",
+        "source": "functions/lib",
         "codebase": "default",
         "runtime": "nodejs20"
     }

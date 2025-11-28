@@ -1,7 +1,14 @@
 <div class="header">
     <h2>Register</h2>
-    <button matButton>Already have an account?</button>
+    <button matButton (click)="haveAnAccount()" [disabled]="isSubmitting()">
+        Already have an account?
+    </button>
 </div>
+@if (errorMessage()) {
+    <div class="error-banner">
+        <p>{{ errorMessage() }}</p>
+    </div>
+}
 <mat-stepper orientation="vertical" [linear]="true" #Stepper [formGroup]="form">
     <mat-step label="Let other players find you 🏓" [stepControl]="form.get('fullName')!">
         <app-input label="Full name" placeholder="Enter your name" formControlName="fullName" />
@@ -10,7 +17,12 @@
             <b>This will only be visible to those who have made an account.</b>
         </p>
         <mat-divider />
-        <button matButton matStepperNext [disabled]="!form.get('fullName')?.valid">Next</button>
+        <button
+            matButton
+            matStepperNext
+            [disabled]="!form.get('fullName')?.valid || isSubmitting()">
+            Next
+        </button>
     </mat-step>
 
     <mat-step label="Account details 🔒" [stepControl]="form.get('accountDetails')!">
@@ -20,7 +32,7 @@
                 form.get('accountDetails.username')?.hasError('minlength') &&
                 form.get('accountDetails.username')?.touched
             ) {
-                <p class="error">Username must be at least 6 characters</p>
+                <p class="error">Username must be at least 3 characters</p>
             }
             <app-input
                 label="Password"
@@ -54,7 +66,11 @@
             <button
                 matButton
                 matStepperNext
-                [disabled]="!form.get('accountDetails')?.valid || form.hasError('mustMatch')">
+                [disabled]="
+                    !form.get('accountDetails')?.valid ||
+                    form.hasError('mustMatch') ||
+                    isSubmitting()
+                ">
                 Next
             </button>
         </div>
@@ -69,10 +85,10 @@
         <button
             matButton="filled"
             (click)="handleRegister()"
-            [disabled]="!form.valid || forceDisableSubmit()">
-            Register
+            [disabled]="!form.valid || forceDisableSubmit() || isSubmitting()">
+            {{ isSubmitting() ? 'Registering...' : 'Register' }}
         </button>
     </mat-step>
 </mat-stepper>
 
-<button matButton (click)="close()">close</button>
+<button matButton (click)="close()" [disabled]="isSubmitting()">close</button>
