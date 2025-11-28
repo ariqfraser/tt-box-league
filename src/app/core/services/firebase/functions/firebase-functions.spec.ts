@@ -6,7 +6,9 @@ describe('FirebaseFunctions', () => {
     let service: FirebaseFunctions;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({});
+        TestBed.configureTestingModule({
+            providers: [{ provide: FirebaseFunctions, useValue: {} }],
+        });
         service = TestBed.inject(FirebaseFunctions);
     });
 
