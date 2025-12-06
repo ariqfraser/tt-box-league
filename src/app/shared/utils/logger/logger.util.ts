@@ -26,7 +26,7 @@ export class Log {
         if (environment.isProduction) {
             return;
         }
-        console.trace(`%c[DEBUG]%c ${message}`, 'color: lightblue; font-size: 1em;', data);
+        console.info(`%c[DEBUG]%c ${message}`, 'color: lightblue; font-size: 1em;', data);
     }
 
     /**

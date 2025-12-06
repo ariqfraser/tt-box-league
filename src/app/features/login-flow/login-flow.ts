@@ -1,12 +1,4 @@
-import {
-    Component,
-    computed,
-    inject,
-    signal,
-    ViewChild,
-    OnInit,
-    AfterViewInit,
-} from '@angular/core';
+import { Component, computed, inject, signal, ViewChild, AfterViewInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -40,7 +32,7 @@ import { Input } from '@shared/ui/input/input';
     templateUrl: './login-flow.html',
     styleUrl: './login-flow.scss',
 })
-export class LoginFlow implements OnInit, AfterViewInit {
+export class LoginFlow implements AfterViewInit {
     @ViewChild('stepper') stepper?: MatStepper;
     @ViewChild('scanner') scanner?: Scanner;
 
@@ -65,10 +57,9 @@ export class LoginFlow implements OnInit, AfterViewInit {
         return code.slice(0, 2) + '********' + code.slice(-2);
     });
 
-    ngOnInit(): void {
-        this.connectToFirebase();
-    }
-
+    /**
+     *
+     */
     ngAfterViewInit(): void {
         this.populateAuthCodeFromQuery();
         this.populateEmailFromStorage();
@@ -84,19 +75,6 @@ export class LoginFlow implements OnInit, AfterViewInit {
             this.form.get('authCode')?.setValue(authCode);
             this.stepper?.next();
         }
-    }
-
-    private connectToFirebase(): void {
-        this.isConnecting.set(true);
-        this.login.signIn().subscribe({
-            next: () => {
-                this.isConnecting.set(false);
-            },
-            error: (err) => {
-                this.isConnecting.set(false);
-                this.errorMessage.set(err.message || 'Failed to connect to server');
-            },
-        });
     }
 
     /**
@@ -137,7 +115,6 @@ export class LoginFlow implements OnInit, AfterViewInit {
      */
     retryConnection(): void {
         this.errorMessage.set('');
-        this.connectToFirebase();
     }
 
     /**

@@ -1,8 +1,8 @@
 import * as admin from 'firebase-admin';
-import { register } from './register/register.function';
+import { login } from './login/login.fn';
 
 // Initialize Firebase Admin SDK
 admin.initializeApp();
 
 // Export functions
-export { register };
+export { login };

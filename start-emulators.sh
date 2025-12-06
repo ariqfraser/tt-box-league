@@ -14,13 +14,12 @@ if ! command -v firebase &> /dev/null; then
     exit 1
 fi
 
-# Check if functions are built
-if [ ! -d "functions/lib" ]; then
-    echo "📦 Building Cloud Functions..."
-    cd functions
-    npm run build
-    cd ..
-fi
+# Build functions
+echo "📦 Building Cloud Functions..."
+cd functions
+npm run build
+cd ..
+
 
 # Set environment for local development
 export FIREBASE_EMULATOR_HOST=localhost:8081
@@ -34,7 +33,7 @@ echo "  - Emulator UI:        http://localhost:4000"
 echo ""
 
 # Set verification code for testing
-export FIREBASE_FUNCTIONS_CONFIG='{"registration":{"code":"test-code-123"}}'
+export FIREBASE_FUNCTIONS_CONFIG='{"authCode":"test-code-123"}'
 echo "✅ Verification code set to: test-code-123"
 echo ""
 

@@ -1,5 +1,12 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
-import { Auth, authState, signInAnonymously, user, UserCredential } from '@angular/fire/auth';
+import {
+    Auth,
+    authState,
+    signInAnonymously,
+    user,
+    UserCredential,
+    signInWithEmailAndPassword,
+} from '@angular/fire/auth';
 import { Log } from '@app/shared/utils/logger/logger.util';
 import { catchError, from, Observable, Subscription, throwError } from 'rxjs';
 
@@ -34,6 +41,21 @@ export class FirebaseAuth implements OnDestroy {
             catchError((e) => {
                 Log.error('Error during anonymous sign-in:', e);
                 return throwError(() => new Error('Anonymous sign-in failed'));
+            }),
+        );
+    }
+
+    /**
+     * Sign in a user using email and password.
+     * @param email - The user's email address.
+     * @param password - The user's password.
+     * @returns Observable that emits the Firebase UserCredential on success.
+     */
+    signInEmail(email: string, password: string): Observable<UserCredential> {
+        return from(signInWithEmailAndPassword(this.auth, email, password)).pipe(
+            catchError((e) => {
+                Log.error('Error during email/password sign-in:', e);
+                return throwError(() => new Error('Email/password sign-in failed'));
             }),
         );
     }

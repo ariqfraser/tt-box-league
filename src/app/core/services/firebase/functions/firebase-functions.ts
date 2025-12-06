@@ -17,8 +17,11 @@ export class FirebaseFunctions {
      * @param data - the data to send to the Cloud Function
      * @returns an Observable of the Cloud Function result
      */
-    call<T, U>(name: string, data: U): Observable<HttpsCallableResult<T>> {
+    call<Response, Request>(
+        name: string,
+        data: Request,
+    ): Observable<HttpsCallableResult<Response>> {
         const callable = httpsCallable(this.functions, name);
-        return from(callable(data) as Promise<HttpsCallableResult<T>>);
+        return from(callable(data) as Promise<HttpsCallableResult<Response>>);
     }
 }

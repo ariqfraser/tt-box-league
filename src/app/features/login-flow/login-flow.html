@@ -9,16 +9,10 @@
     </div>
 }
 
-@if (isConnecting()) {
-    <p class="status">Connecting to server...</p>
-    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-}
-
-<mat-stepper [linear]="true" #stepper [formGroup]="form">
-    <mat-step label="Auth code 🔑" [stepControl]="form.get('authCode')!">
-        <app-scanner (scanned)="onQrScanned($event)" #scanner />
-
+<mat-stepper [linear]="true" #stepper [formGroup]="form" orientation="vertical">
+    <mat-step label="Scan 📷" [stepControl]="form.get('authCode')!">
         <p class="description">Scan the QR code to authenticate</p>
+        <app-scanner (scanned)="onQrScanned($event)" #scanner class="scanner" />
 
         <mat-divider />
 
@@ -50,7 +44,7 @@
         </button>
     </mat-step>
 
-    <mat-step label="Submit ✅">
+    <mat-step label="Submit 🏓">
         <p class="description">Review your details and submit to complete login.</p>
         <mat-divider />
 
