@@ -1,20 +1,22 @@
-import { Component, computed, inject, OnInit, signal, ViewChild } from '@angular/core';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
-import { Login } from './login';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { Input } from '@app/shared/ui/input/input';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatStepper, MatStepperModule } from '@angular/material/stepper';
-import { MatDividerModule } from '@angular/material/divider';
-import { StorageService } from '@app/core/services/storage/storage.service';
-import { ActivatedRoute } from '@angular/router';
+import { Component, computed, inject, signal, ViewChild, OnInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatStepper, MatStepperModule } from '@angular/material/stepper';
+import { ActivatedRoute } from '@angular/router';
+import { StorageService } from '@app/core/services/storage/storage.service';
 import { Scanner } from '@app/shared/ui/scanner/scanner';
+import { LoginFlowService } from './login-flow.service';
 
+/**
+ *
+ */
 @Component({
-    selector: 'app-login-sheet',
+    selector: 'app-login-flow',
     imports: [
         MatInputModule,
         MatFormFieldModule,
@@ -22,18 +24,16 @@ import { Scanner } from '@app/shared/ui/scanner/scanner';
         MatProgressBarModule,
         MatStepperModule,
         MatDividerModule,
-        Input,
         FormsModule,
         ReactiveFormsModule,
         Scanner,
     ],
-    templateUrl: './login-sheet.html',
-    styleUrl: './login-sheet.scss',
+    templateUrl: './login-flow.html',
+    styleUrl: './login-flow.scss',
 })
-export class LoginSheet implements OnInit {
+export class LoginFlow implements OnInit {
     @ViewChild('stepper') stepper?: MatStepper;
-
-    private readonly login = inject(Login);
+    private readonly login = inject(LoginFlowService);
     private readonly formBuilder = inject(FormBuilder);
     private readonly storage = inject(StorageService);
     private readonly route = inject(ActivatedRoute);
@@ -54,6 +54,9 @@ export class LoginSheet implements OnInit {
         return code.slice(0, 2) + '********' + code.slice(-2);
     });
 
+    /**
+     *
+     */
     ngOnInit(): void {
         this.populateAuthCodeFromQuery();
         this.populateEmailFromStorage();
@@ -84,6 +87,9 @@ export class LoginSheet implements OnInit {
         });
     }
 
+    /**
+     *
+     */
     skipAuthCode(): void {
         // TODO: Replace with actual auth code when QR scanner is implemented
         this.form.get('authCode')?.setValue('valid-auth-code');
@@ -99,6 +105,9 @@ export class LoginSheet implements OnInit {
         this.stepper?.next();
     }
 
+    /**
+     *
+     */
     submitForm(): void {
         if (this.form.invalid) return;
 
@@ -109,6 +118,9 @@ export class LoginSheet implements OnInit {
         this.stepper?.next();
     }
 
+    /**
+     *
+     */
     retryConnection(): void {
         this.errorMessage.set('');
         this.connectToFirebase();

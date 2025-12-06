@@ -1,8 +1,11 @@
 import { Component, computed, input, output } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { Match } from '@app/core/models/match.models';
 
+/**
+ *
+ */
 @Component({
     selector: 'app-league-box',
     imports: [MatCardModule, MatButtonModule],
@@ -30,7 +33,7 @@ export class LeagueBox {
     }
 
     protected handleClick(playerA: string, playerB: string): void {
-        const {id: matchId} = this.findMatchFromPlayers(playerA, playerB);
+        const { id: matchId } = this.findMatchFromPlayers(playerA, playerB);
         this.addScore.emit(matchId);
     }
 

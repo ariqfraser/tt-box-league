@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoginSheet } from './login-sheet';
+import { LoginFlow } from './login-flow';
 
-describe('LoginSheet', () => {
-    let component: LoginSheet;
-    let fixture: ComponentFixture<LoginSheet>;
+describe('LoginFlow', () => {
+    let component: LoginFlow;
+    let fixture: ComponentFixture<LoginFlow>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [LoginSheet],
+            imports: [LoginFlow],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(LoginSheet);
+        fixture = TestBed.createComponent(LoginFlow);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

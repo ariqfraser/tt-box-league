@@ -13,7 +13,7 @@
     <p class="status">Connecting to server...</p>
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 } @else {
-    <mat-stepper orientation="vertical" [linear]="true" #stepper [formGroup]="form">
+    <mat-stepper [linear]="true" #stepper [formGroup]="form">
         <mat-step label="Auth code 🔑" [stepControl]="form.get('authCode')!">
             <p class="description">Scan the QR code to authenticate, or skip for now.</p>
             <app-scanner (scanned)="onQrScanned($event)" />

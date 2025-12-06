@@ -1,17 +1,17 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { FirebaseAuth } from '@app/core/services/firebase/auth/firebase-auth';
-import { StorageService } from '@app/core/services/storage/storage.service';
-import { CookieStore } from '@shared/utils/cookie-store/cookie-store.util';
-import { catchError, Observable, of, throwError } from 'rxjs';
 import { UserCredential } from '@angular/fire/auth';
+import { FirebaseAuth } from '@core/services/firebase/auth/firebase-auth';
+import { StorageService } from '@core/services/storage/storage.service';
+import { CookieStore } from '@shared/utils/cookie-store/cookie-store.util';
+import { Observable, catchError, throwError, of } from 'rxjs';
 
 /**
- * Service to manage the login flow for the login sheet feature
+ *
  */
 @Injectable({
     providedIn: 'root',
 })
-export class Login {
+export class LoginFlowService {
     private readonly storage = inject(StorageService);
     private readonly auth = inject(FirebaseAuth);
 

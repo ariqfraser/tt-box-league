@@ -15,7 +15,7 @@
  * - Use {@link StorageService.get}, {@link StorageService.set}, and {@link StorageService.remove} exclusively.
  * - All values are serialised to JSON when stored in localStorage.
  * - The schema is immutable; modify the service if storage behaviour needs to change.
-
+ 
  */
 export const StorageSchema = {
     USER_EMAIL: { key: 'user_email', defaultValue: '' as string },

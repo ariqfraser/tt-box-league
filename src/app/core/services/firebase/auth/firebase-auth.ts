@@ -3,6 +3,9 @@ import { Auth, authState, signInAnonymously, user, UserCredential } from '@angul
 import { Log } from '@app/shared/utils/logger/logger.util';
 import { catchError, from, Observable, Subscription, throwError } from 'rxjs';
 
+/**
+ *
+ */
 @Injectable({
     providedIn: 'root',
 })
@@ -12,6 +15,9 @@ export class FirebaseAuth implements OnDestroy {
     readonly user$ = user(this.auth);
     private authStateSub: Subscription;
 
+    /**
+     *
+     */
     constructor() {
         this.authStateSub = this.authState$.subscribe((state) => {
             // Handle user state changes if needed
@@ -32,6 +38,9 @@ export class FirebaseAuth implements OnDestroy {
         );
     }
 
+    /**
+     *
+     */
     ngOnDestroy(): void {
         this.authStateSub.unsubscribe();
     }

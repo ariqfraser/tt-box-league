@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Match } from '@app/core/models/match.models';
 
+/**
+ *
+ */
 @Component({
     selector: 'app-box-league',
     imports: [],

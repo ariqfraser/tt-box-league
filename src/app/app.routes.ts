@@ -32,4 +32,8 @@ export const routes: Routes = [
             },
         ],
     },
+    {
+        path: 'login',
+        loadComponent: () => import('@features/login-flow/login-flow').then((m) => m.LoginFlow),
+    },
 ];

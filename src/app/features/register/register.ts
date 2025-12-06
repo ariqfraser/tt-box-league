@@ -113,6 +113,9 @@ export class Register {
         this.dialogRef.close();
     }
 
+    /**
+     *
+     */
     haveAnAccount(): void {
         this.dialogRef.close({ goto: 'login' });
     }

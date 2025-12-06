@@ -38,6 +38,7 @@ export class Scanner {
 
     /**
      * Handles successful QR code scan
+     * @param result
      */
     onCodeScanned(result: string): void {
         this.isScanning.set(false);
@@ -46,6 +47,7 @@ export class Scanner {
 
     /**
      * Handles camera permission response
+     * @param hasPermission
      */
     onPermissionResponse(hasPermission: boolean): void {
         this.hasPermission.set(hasPermission);
@@ -54,6 +56,7 @@ export class Scanner {
 
     /**
      * Handles available cameras list
+     * @param cameras
      */
     onCamerasFound(cameras: MediaDeviceInfo[]): void {
         this.availableCameras.set(cameras);
@@ -66,6 +69,7 @@ export class Scanner {
 
     /**
      * Handles scanner errors
+     * @param error
      */
     onScanError(error: Error): void {
         this.scanError.emit(error.message);
