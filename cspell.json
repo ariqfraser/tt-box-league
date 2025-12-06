@@ -8,21 +8,26 @@
         }
     ],
     "words": [
+        "ariq",
+        "ariqfraser",
+        "behaviour",
+        "existinguser",
         "firebase",
         "Firebase",
+        "firebaseapp",
+        "firebasestorage",
         "firestore",
         "Firestore",
+        "Leia",
         "lightgreen",
         "lightorange",
-        "ariq",
-        "premade",
         "organise",
-        "firebasestorage",
-        "firebaseapp",
+        "premade",
+        "serialised",
+        "Skywalker",
         "testuser",
-        "ariqfraser",
-        "existinguser",
-        "wrongcode"
+        "wrongcode",
+        "zxing"
     ],
     "ignorePaths": [
         "node_modules/**",

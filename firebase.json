@@ -23,5 +23,15 @@
         "source": "functions/lib",
         "codebase": "default",
         "runtime": "nodejs20"
+    },
+    "hosting": {
+        "public": "dist/tt-box-league/browser",
+        "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+        "rewrites": [
+            {
+                "source": "**",
+                "destination": "/index.html"
+            }
+        ]
     }
 }

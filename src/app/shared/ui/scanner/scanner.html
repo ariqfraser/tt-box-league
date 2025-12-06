@@ -1,0 +1,34 @@
+<div class="scanner-container">
+    @if (hasPermission() === false) {
+        <div class="permission-denied">
+            <p>Camera permission denied. Please enable camera access to scan QR codes.</p>
+        </div>
+    } @else if (isScanning()) {
+        <zxing-scanner
+            [formats]="formats"
+            [device]="selectedCamera()"
+            (scanSuccess)="onCodeScanned($event)"
+            (permissionResponse)="onPermissionResponse($event)"
+            (camerasFound)="onCamerasFound($event)"
+            (scanError)="onScanError($event)"></zxing-scanner>
+
+        @if (availableCameras().length > 1) {
+            <div class="camera-selector">
+                <select
+                    (change)="
+                        selectedCamera.set(availableCameras()[$any($event.target).selectedIndex])
+                    ">
+                    @for (camera of availableCameras(); track camera.deviceId) {
+                        <option [value]="camera.deviceId">
+                            {{ camera.label || 'Camera ' + $index }}
+                        </option>
+                    }
+                </select>
+            </div>
+        }
+    } @else {
+        <div class="scan-complete">
+            <p>QR code scanned successfully!</p>
+        </div>
+    }
+</div>

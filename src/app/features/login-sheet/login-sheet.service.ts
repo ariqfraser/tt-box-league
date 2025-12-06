@@ -7,8 +7,10 @@ import { LoginSheet } from './login-sheet';
 })
 export class LoginSheetService {
     private readonly _bottomSheet = inject(MatBottomSheet);
+
     private sheetRef: MatBottomSheetRef<LoginSheet> | undefined;
 
+    /** Opens the login bottom sheet */
     open(): void {
         if (this.sheetRef) {
             this.sheetRef.dismiss();
@@ -16,6 +18,7 @@ export class LoginSheetService {
 
         this.sheetRef = this._bottomSheet.open(LoginSheet, {
             panelClass: 'login-panel',
+            disableClose: true,
         });
     }
 }

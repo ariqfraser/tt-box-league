@@ -1,21 +1,63 @@
-<h1>Login</h1>
+<div class="header">
+    <h2>Login</h2>
+</div>
 
-<mat-form-field>
-    <mat-label>Username</mat-label>
-    <input matInput />
-</mat-form-field>
+@if (errorMessage()) {
+    <div class="error-banner">
+        <p>{{ errorMessage() }}</p>
+        <button matButton (click)="retryConnection()">Retry</button>
+    </div>
+}
 
-<mat-form-field>
-    <mat-label>Password</mat-label>
-    <input matInput [type]="hidePassword() ? 'password' : 'text'" />
-    <button
-        matIconButton
-        matSuffix
-        (click)="togglePasswordVisibility()"
-        [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hidePassword()">
-        <app-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</app-icon>
-    </button>
-</mat-form-field>
+@if (isConnecting()) {
+    <p class="status">Connecting to server...</p>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+} @else {
+    <mat-stepper orientation="vertical" [linear]="true" #stepper [formGroup]="form">
+        <mat-step label="Auth code 🔑" [stepControl]="form.get('authCode')!">
+            <p class="description">Scan the QR code to authenticate, or skip for now.</p>
+            <app-scanner (scanned)="onQrScanned($event)" />
+            <mat-divider />
+            <button matButton (click)="skipAuthCode()" [disabled]="isSubmitting()">
+                Skip for now
+            </button>
+        </mat-step>
 
-<button matButton="filled">Login</button>
+        <mat-step label="Email 📧" [stepControl]="form.get('email')!">
+            <app-input
+                label="Email"
+                placeholder="Enter your email"
+                formControlName="email"
+                type="email" />
+            <p class="description">
+                Your email is needed so other players can contact you to organise matches.
+            </p>
+            @if (form.get('email')?.hasError('pattern') && form.get('email')?.touched) {
+                <p class="error">Email must end in .com or .co.uk</p>
+            }
+            <mat-divider />
+            <button
+                matButton
+                matStepperNext
+                [disabled]="!form.get('email')?.valid || isSubmitting()">
+                Next
+            </button>
+        </mat-step>
+
+        <mat-step label="Submit ✅">
+            <p class="description">Review your details and submit to complete login.</p>
+            <mat-divider />
+
+            <pre>
+Email: {{ form.get('email')?.value }}
+Auth Code: {{ authCodeDisplay() }}
+            </pre>
+            <button
+                matButton="filled"
+                (click)="submitForm()"
+                [disabled]="!form.valid || isSubmitting()">
+                {{ isSubmitting() ? 'Submitting...' : 'Complete Login' }}
+            </button>
+        </mat-step>
+    </mat-stepper>
+}

@@ -23,7 +23,8 @@
             "@shared/*": ["src/app/shared/*"],
             "@core/*": ["src/app/core/*"],
             "@features/*": ["src/app/features/*"],
-            "@testing": ["src/testing/index.ts"]
+            "@testing": ["src/testing/index.ts"],
+            "@configs/*": ["src/app/configs/*"]
         }
     },
     "angularCompilerOptions": {

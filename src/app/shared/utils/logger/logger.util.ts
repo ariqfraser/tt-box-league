@@ -38,7 +38,7 @@ export class Log {
         if (environment.isProduction) {
             return;
         }
-        console.info(`%c[INFO]%c ${message}`, 'color: lightgreen; font-size: 1em;', data);
+        console.info(`%c[INFO]%c ${message} : ${data}`, 'color: lightgreen; font-size: 1em;');
     }
 
     /**
@@ -51,5 +51,13 @@ export class Log {
             return;
         }
         console.info(`%c[WARN]%c ${message}`, 'color: lightorange; font-size: 1em;', data);
+    }
+
+    /**
+     * @param type - Short human readable message describing error type
+     * @param message - Optional additional information about the error
+     */
+    static error(type: string, message?: string): void {
+        console.error(`%c[ERROR]%c ${type}: ${message}`, 'color: red; font-size: 1em;');
     }
 }

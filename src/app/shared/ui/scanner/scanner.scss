@@ -1,0 +1,50 @@
+:host {
+    display: block;
+}
+
+.scanner-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+
+    zxing-scanner {
+        display: block;
+        width: 100%;
+        min-height: 300px;
+        border-radius: 8px;
+        overflow: hidden;
+
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    }
+}
+
+.permission-denied,
+.scan-complete {
+    padding: 2rem;
+    text-align: center;
+    background: var(--surface-container);
+    border-radius: 8px;
+
+    p {
+        margin: 0;
+        color: var(--on-surface);
+    }
+}
+
+.camera-selector {
+    margin-top: 1rem;
+
+    select {
+        width: 100%;
+        padding: 0.5rem;
+        border-radius: 4px;
+        border: 1px solid var(--outline);
+        background: var(--surface);
+        color: var(--on-surface);
+    }
+}

@@ -2,7 +2,7 @@ import { AfterViewInit, Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Log } from '@shared/utils/logger/logger.util';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
-import { RegisterService } from './features/register/register.service';
+import { LoginSheetService } from './features/login-sheet/login-sheet.service';
 
 @Component({
     selector: 'app-root',
@@ -11,7 +11,7 @@ import { RegisterService } from './features/register/register.service';
     styleUrl: './app.scss',
 })
 export class App implements AfterViewInit {
-    private readonly register = inject(RegisterService);
+    private readonly login = inject(LoginSheetService);
 
     protected readonly title = signal('tt-box-league');
 
@@ -20,6 +20,6 @@ export class App implements AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this.register.openRegisterDialog();
+        this.login.open();
     }
 }

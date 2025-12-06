@@ -1,7 +1,7 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
-import { Auth, authState, user } from '@angular/fire/auth';
+import { Auth, authState, signInAnonymously, user, UserCredential } from '@angular/fire/auth';
 import { Log } from '@app/shared/utils/logger/logger.util';
-import { Subscription } from 'rxjs';
+import { catchError, from, Observable, Subscription, throwError } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -17,6 +17,19 @@ export class FirebaseAuth implements OnDestroy {
             // Handle user state changes if needed
             Log.debug('Auth state changed:', state);
         });
+    }
+
+    /**
+     * Handle anonymous sign-in for users.
+     * @returns - UserCredential from Firebase anonymous sign-in
+     */
+    signIn(): Observable<UserCredential> {
+        return from(signInAnonymously(this.auth)).pipe(
+            catchError((e) => {
+                Log.error('Error during anonymous sign-in:', e);
+                return throwError(() => new Error('Anonymous sign-in failed'));
+            }),
+        );
     }
 
     ngOnDestroy(): void {

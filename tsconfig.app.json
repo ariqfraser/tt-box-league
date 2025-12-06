@@ -13,6 +13,7 @@
             "@shared/*": ["src/app/shared/*"],
             "@core/*": ["src/app/core/*"],
             "@features/*": ["src/app/features/*"],
+            "@configs/*": ["src/app/configs/*"],
             "@testing": ["src/testing/index.ts"]
         }
     },
