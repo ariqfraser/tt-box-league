@@ -3,7 +3,7 @@ import { UserCredential } from '@angular/fire/auth';
 import { FirebaseAuth } from '@core/services/firebase/auth/firebase-auth';
 import { StorageService } from '@core/services/storage/storage.service';
 import { CookieStore } from '@shared/utils/cookie-store/cookie-store.util';
-import { Observable, catchError, throwError, of } from 'rxjs';
+import { Observable, catchError, throwError, of, tap } from 'rxjs';
 
 /**
  *
@@ -30,23 +30,6 @@ export class LoginFlowService {
                 return throwError(() => new Error(e.message));
             }),
         );
-    }
-
-    /**
-     * Validates the auth code against the server
-     * @param code - The auth code to validate
-     * @returns Observable of whether the code is valid
-     */
-    validateAuthCode(code: string): Observable<boolean> {
-        // TODO: Replace with actual API call to validate auth code
-        // For now, simulate validation - any non-empty code is valid
-        if (!code || code.trim() === '') {
-            return of(false);
-        }
-        // Store the auth code in cookies for future sessions
-        CookieStore.setCookie('auth', code, 7);
-        this._isAuthenticated.set(true);
-        return of(true);
     }
 
     /**
@@ -86,10 +69,24 @@ export class LoginFlowService {
      * Completes the login flow - called after all steps are done
      * @param authCode - The validated auth code
      * @param email - The user's email
+     * @returns Observable<boolean> that emits true when login succeeds and errors when validation fails
      */
-    completeLogin(authCode: string, email: string): void {
-        CookieStore.setCookie('auth', authCode, 7);
-        this.storage.set('USER_EMAIL', email);
-        this._isAuthenticated.set(true);
+    submitLogin(authCode: string, email: string): Observable<boolean> {
+        // Make API call to validate auth code and email
+        const validate$ = of(false); // Simulate API call for now
+
+        return validate$.pipe(
+            tap((isValid) => {
+                if (!isValid) {
+                    throw new Error('Invalid auth code or email');
+                }
+                CookieStore.setCookie('auth', authCode);
+                this.storage.set('USER_EMAIL', email);
+                this._isAuthenticated.set(true);
+            }),
+            catchError((e) => {
+                return throwError(() => new Error(e.message));
+            }),
+        );
     }
 }

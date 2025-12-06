@@ -28,6 +28,8 @@
                 <button matButton="outlined" (click)="retryScan()">Retry</button>
             </div>
         }
+
+        <p class="description">Scanned code: {{ authCodeDisplay() }}</p>
     </mat-step>
 
     <mat-step label="Email 📧" [stepControl]="form.get('email')!">
@@ -63,5 +65,12 @@ Auth Code: {{ authCodeDisplay() }}
             [disabled]="!form.valid || isSubmitting()">
             {{ isSubmitting() ? 'Submitting...' : 'Complete Login' }}
         </button>
+
+        @if (submitErrorMessage()) {
+            <mat-divider />
+            <div class="error-banner">
+                <p>{{ submitErrorMessage() }}</p>
+            </div>
+        }
     </mat-step>
 </mat-stepper>

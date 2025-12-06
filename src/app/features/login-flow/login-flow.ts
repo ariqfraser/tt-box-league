@@ -16,7 +16,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { ActivatedRoute } from '@angular/router';
-import { StorageService } from '@app/core/services/storage/storage.service';
 import { Scanner } from '@app/shared/ui/scanner/scanner';
 import { LoginFlowService } from './login-flow.service';
 import { Input } from '@shared/ui/input/input';
@@ -47,19 +46,18 @@ export class LoginFlow implements OnInit, AfterViewInit {
 
     private readonly login = inject(LoginFlowService);
     private readonly formBuilder = inject(FormBuilder);
-    private readonly storage = inject(StorageService);
     private readonly route = inject(ActivatedRoute);
-
-    protected readonly isConnecting = signal(true);
-    protected readonly isSubmitting = signal(false);
-    protected readonly errorMessage = signal('');
-    protected readonly qrErrorMessage = signal('');
 
     protected readonly form = this.formBuilder.group({
         authCode: ['', Validators.required],
         email: ['', [Validators.required, Validators.email, Validators.pattern(/\.(com|co\.uk)$/)]],
     });
 
+    protected readonly isConnecting = signal(true);
+    protected readonly isSubmitting = signal(false);
+    protected readonly errorMessage = signal('');
+    protected readonly qrErrorMessage = signal('');
+    protected readonly submitErrorMessage = signal('');
     protected readonly formValues = toSignal(this.form.valueChanges);
     protected readonly authCodeDisplay = computed(() => {
         const code = this.formValues()?.authCode || '';
@@ -67,9 +65,6 @@ export class LoginFlow implements OnInit, AfterViewInit {
         return code.slice(0, 2) + '********' + code.slice(-2);
     });
 
-    /**
-     *
-     */
     ngOnInit(): void {
         this.connectToFirebase();
     }
@@ -80,7 +75,7 @@ export class LoginFlow implements OnInit, AfterViewInit {
     }
 
     private populateEmailFromStorage(): void {
-        this.form.get('email')?.setValue(this.storage.get('USER_EMAIL'));
+        this.form.get('email')?.setValue(this.login.getStoredEmail());
     }
 
     private populateAuthCodeFromQuery(): void {
@@ -105,15 +100,6 @@ export class LoginFlow implements OnInit, AfterViewInit {
     }
 
     /**
-     *
-     */
-    skipAuthCode(): void {
-        // TODO: Replace with actual auth code when QR scanner is implemented
-        this.form.get('authCode')?.setValue('valid-auth-code');
-        this.stepper?.next();
-    }
-
-    /**
      * Handles QR code scan result from the scanner
      * @param buffer - The scanned auth code
      */
@@ -133,10 +119,17 @@ export class LoginFlow implements OnInit, AfterViewInit {
         if (this.form.invalid) return;
 
         this.isSubmitting.set(true);
-        const email = this.form.get('email')?.value ?? '';
-        this.login.submitEmail(email);
-        this.isSubmitting.set(false);
-        this.stepper?.next();
+
+        const { authCode, email } = this.form.value;
+        this.login.submitLogin(authCode!, email!).subscribe({
+            next: () => {
+                this.isSubmitting.set(false);
+            },
+            error: (e) => {
+                this.submitErrorMessage.set(e);
+                this.isSubmitting.set(false);
+            },
+        });
     }
 
     /**
