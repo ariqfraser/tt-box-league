@@ -10,7 +10,7 @@ export interface User {
     name: string;
     username: string;
     joinDate: Timestamp;
-    winCount: number;
-    lossCount: number;
+    wins: number;
+    losses: number;
     elo: number;
 }
