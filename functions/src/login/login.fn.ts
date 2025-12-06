@@ -23,7 +23,7 @@ export const login = onCall<LoginRequest>(async (request) => {
     const isValidEmail = VALID_EMAIL_PATTERN.test(email);
     logger.debug('Validating email:', { email, isValidEmail, pattern: VALID_EMAIL_PATTERN.source });
     if (!isValidEmail) {
-        throw new HttpsError('invalid-argument', 'Email is not authorized');
+        throw new HttpsError('invalid-argument', 'Email is not authorised');
     }
 
     const displayName = email.split('@')[0].split('.').join(' ');
