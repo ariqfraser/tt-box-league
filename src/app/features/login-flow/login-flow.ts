@@ -1,4 +1,12 @@
-import { Component, computed, inject, signal, ViewChild, OnInit } from '@angular/core';
+import {
+    Component,
+    computed,
+    inject,
+    signal,
+    ViewChild,
+    OnInit,
+    AfterViewInit,
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,6 +19,7 @@ import { ActivatedRoute } from '@angular/router';
 import { StorageService } from '@app/core/services/storage/storage.service';
 import { Scanner } from '@app/shared/ui/scanner/scanner';
 import { LoginFlowService } from './login-flow.service';
+import { Input } from '@shared/ui/input/input';
 
 /**
  *
@@ -27,12 +36,15 @@ import { LoginFlowService } from './login-flow.service';
         FormsModule,
         ReactiveFormsModule,
         Scanner,
+        Input,
     ],
     templateUrl: './login-flow.html',
     styleUrl: './login-flow.scss',
 })
-export class LoginFlow implements OnInit {
+export class LoginFlow implements OnInit, AfterViewInit {
     @ViewChild('stepper') stepper?: MatStepper;
+    @ViewChild('scanner') scanner?: Scanner;
+
     private readonly login = inject(LoginFlowService);
     private readonly formBuilder = inject(FormBuilder);
     private readonly storage = inject(StorageService);
@@ -41,6 +53,7 @@ export class LoginFlow implements OnInit {
     protected readonly isConnecting = signal(true);
     protected readonly isSubmitting = signal(false);
     protected readonly errorMessage = signal('');
+    protected readonly qrErrorMessage = signal('');
 
     protected readonly form = this.formBuilder.group({
         authCode: ['', Validators.required],
@@ -49,7 +62,7 @@ export class LoginFlow implements OnInit {
 
     protected readonly formValues = toSignal(this.form.valueChanges);
     protected readonly authCodeDisplay = computed(() => {
-        const code = this.formValues()!.authCode || '';
+        const code = this.formValues()?.authCode || '';
         if (code.length <= 4) return code;
         return code.slice(0, 2) + '********' + code.slice(-2);
     });
@@ -58,9 +71,12 @@ export class LoginFlow implements OnInit {
      *
      */
     ngOnInit(): void {
+        this.connectToFirebase();
+    }
+
+    ngAfterViewInit(): void {
         this.populateAuthCodeFromQuery();
         this.populateEmailFromStorage();
-        this.connectToFirebase();
     }
 
     private populateEmailFromStorage(): void {
@@ -71,6 +87,7 @@ export class LoginFlow implements OnInit {
         const authCode = this.route.snapshot.queryParamMap.get('authCode');
         if (authCode) {
             this.form.get('authCode')?.setValue(authCode);
+            this.stepper?.next();
         }
     }
 
@@ -98,15 +115,19 @@ export class LoginFlow implements OnInit {
 
     /**
      * Handles QR code scan result from the scanner
-     * @param code - The scanned auth code
+     * @param buffer - The scanned auth code
      */
-    onQrScanned(code: string): void {
-        this.form.get('authCode')?.setValue(code);
+    onQrScanned(buffer: string): void {
+        const match = buffer.match(/authCode=(\w+)$/);
+        if (!match) {
+            this.qrErrorMessage.set('Scanned QR code is invalid');
+            return;
+        }
+        this.form.get('authCode')?.setValue(match[1]);
         this.stepper?.next();
     }
 
     /**
-     *
      */
     submitForm(): void {
         if (this.form.invalid) return;
@@ -124,5 +145,13 @@ export class LoginFlow implements OnInit {
     retryConnection(): void {
         this.errorMessage.set('');
         this.connectToFirebase();
+    }
+
+    /**
+     * Retries the QR code scan by resetting the scanner and clearing any error messages
+     */
+    retryScan(): void {
+        this.qrErrorMessage.set('');
+        this.scanner?.reset();
     }
 }
