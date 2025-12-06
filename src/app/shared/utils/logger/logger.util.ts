@@ -26,7 +26,12 @@ export class Log {
         if (environment.isProduction) {
             return;
         }
-        console.info(`%c[DEBUG]%c ${message}`, 'color: lightblue; font-size: 1em;', data);
+        console.debug(
+            `%c[DEBUG]%c ${message}`,
+            'color: lightblue; font-size: 1em;',
+            'color: inherit;',
+            data,
+        );
     }
 
     /**
@@ -38,7 +43,12 @@ export class Log {
         if (environment.isProduction) {
             return;
         }
-        console.info(`%c[INFO]%c ${message} : ${data}`, 'color: lightgreen; font-size: 1em;');
+        console.info(
+            `%c[INFO]%c ${message}`,
+            'color: lightgreen; font-size: 1em;',
+            'color: inherit;',
+            data,
+        );
     }
 
     /**
@@ -50,7 +60,12 @@ export class Log {
         if (environment.isProduction) {
             return;
         }
-        console.info(`%c[WARN]%c ${message}`, 'color: lightorange; font-size: 1em;', data);
+        console.warn(
+            `%c[WARN]%c ${message}`,
+            'color: orange; font-size: 1em;',
+            'color: inherit;',
+            data,
+        );
     }
 
     /**
@@ -58,6 +73,13 @@ export class Log {
      * @param message - Optional additional information about the error
      */
     static error(type: string, message?: string): void {
-        console.error(`%c[ERROR]%c ${type}: ${message}`, 'color: red; font-size: 1em;');
+        if (environment.isProduction) {
+            return;
+        }
+        console.error(
+            `%c[ERROR]%c ${type}: ${message}`,
+            'color: red; font-size: 1em;',
+            'color: inherit;',
+        );
     }
 }
