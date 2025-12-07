@@ -3,13 +3,14 @@ import { LeaderboardService } from './leaderboard.service';
 import { catchError, map, of, tap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
+import { Icon } from '@app/shared/ui/icon/icon';
 
 /**
  *  leaderboard feature component
  */
 @Component({
     selector: 'app-leaderboard',
-    imports: [AsyncPipe, MatTableModule],
+    imports: [AsyncPipe, MatTableModule, Icon],
     templateUrl: './leaderboard.html',
     styleUrl: './leaderboard.scss',
 })
