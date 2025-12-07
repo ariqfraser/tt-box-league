@@ -1,32 +1,26 @@
-<div class="header">
-    <h2>Login</h2>
-</div>
-
-@if (errorMessage()) {
-    <div class="error-banner">
-        <p>{{ errorMessage() }}</p>
-        <button matButton="outlined" (click)="retryConnection()">Retry</button>
-    </div>
+@if (isSubmitting()) {
+    <mat-progress-bar mode="indeterminate" class="bar"></mat-progress-bar>
 }
 
-<mat-stepper [linear]="true" #stepper [formGroup]="form" orientation="vertical">
-    <mat-step label="Scan 📷" [stepControl]="form.get('authCode')!">
-        <p class="description">Scan the QR code to authenticate</p>
-        <app-scanner (scanned)="onQrScanned($event)" #scanner class="scanner" />
+<div class="wrapper">
+    <div class="header">
+        <h2>Login</h2>
+    </div>
 
-        <mat-divider />
+    @if (errorMessage()) {
+        <div class="error-banner">
+            <p>{{ errorMessage() }}</p>
+            <button matButton="outlined" (click)="retryConnection()">Retry</button>
+        </div>
+    }
 
-        @if (qrErrorMessage()) {
-            <div class="error-banner">
-                <p>{{ qrErrorMessage() }}</p>
-                <button matButton="outlined" (click)="retryScan()">Retry</button>
-            </div>
-        }
+    @if (submitErrorMessage()) {
+        <div class="error-banner">
+            <p>{{ submitErrorMessage() }}</p>
+        </div>
+    }
 
-        <p class="description">Scanned code: {{ authCodeDisplay() }}</p>
-    </mat-step>
-
-    <mat-step label="Email 📧" [stepControl]="form.get('email')!">
+    <form [formGroup]="form">
         <app-input
             label="Email"
             placeholder="Enter your email"
@@ -35,36 +29,43 @@
         <p class="description">
             Your email is needed so other players can contact you to organise matches.
         </p>
+
         @if (form.get('email')?.hasError('pattern') && form.get('email')?.touched) {
             <p class="error">Email must end in .com or .co.uk</p>
         }
-        <mat-divider />
-        <button matButton matStepperNext [disabled]="!form.get('email')?.valid || isSubmitting()">
-            Next
-        </button>
-    </mat-step>
 
-    <mat-step label="Submit 🏓">
-        <p class="description">Review your details and submit to complete login.</p>
         <mat-divider />
 
-        <pre>
-Email: {{ form.get('email')?.value }}
-Auth Code: {{ authCodeDisplay() }}
-            </pre
-        >
-        <button
-            matButton="filled"
-            (click)="submitForm()"
-            [disabled]="!form.valid || isSubmitting()">
-            {{ isSubmitting() ? 'Submitting...' : 'Complete Login' }}
-        </button>
+        <div class="centre-wrapper">
+            @if (showScanner()) {
+                <app-scanner (scanned)="onQrScanned($event)" #scanner class="scanner" />
+            } @else {
+                @if (!authCodeDisplay()) {
+                    <button matButton="outlined" (click)="retryScan()" class="button-scanner">
+                        Scan QR Code
+                        <app-icon [style.--size]="'1rem'">qr_code</app-icon>
+                    </button>
+                } @else {
+                    <pre>Code: {{ authCodeDisplay() }}</pre>
+                }
+                @if (qrErrorMessage()) {
+                    <div class="error-banner">
+                        <p>{{ qrErrorMessage() }}</p>
+                    </div>
+                }
+            }
+        </div>
 
-        @if (submitErrorMessage()) {
-            <mat-divider />
-            <div class="error-banner">
-                <p>{{ submitErrorMessage() }}</p>
-            </div>
-        }
-    </mat-step>
-</mat-stepper>
+        <mat-divider />
+
+        <div class="right-wrapper">
+            <button
+                class="button-submit"
+                matButton="filled"
+                (click)="submitForm()"
+                [disabled]="!form.valid || isSubmitting()">
+                {{ isSubmitting() ? 'Submitting...' : 'Complete Login' }}
+            </button>
+        </div>
+    </form>
+</div>

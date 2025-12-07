@@ -6,11 +6,11 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { ActivatedRoute } from '@angular/router';
 import { Scanner } from '@app/shared/ui/scanner/scanner';
 import { LoginFlowService } from './login-flow.service';
 import { Input } from '@shared/ui/input/input';
+import { Icon } from '@app/shared/ui/icon/icon';
 
 /**
  *
@@ -22,18 +22,17 @@ import { Input } from '@shared/ui/input/input';
         MatFormFieldModule,
         MatButtonModule,
         MatProgressBarModule,
-        MatStepperModule,
         MatDividerModule,
         FormsModule,
         ReactiveFormsModule,
         Scanner,
         Input,
+        Icon,
     ],
     templateUrl: './login-flow.html',
     styleUrl: './login-flow.scss',
 })
 export class LoginFlow implements AfterViewInit {
-    @ViewChild('stepper') stepper?: MatStepper;
     @ViewChild('scanner') scanner?: Scanner;
 
     private readonly login = inject(LoginFlowService);
@@ -50,6 +49,8 @@ export class LoginFlow implements AfterViewInit {
     protected readonly errorMessage = signal('');
     protected readonly qrErrorMessage = signal('');
     protected readonly submitErrorMessage = signal('');
+
+    protected readonly showScanner = signal(false);
     protected readonly formValues = toSignal(this.form.valueChanges);
     protected readonly authCodeDisplay = computed(() => {
         const code = this.formValues()?.authCode || '';
@@ -73,7 +74,6 @@ export class LoginFlow implements AfterViewInit {
         const authCode = this.route.snapshot.queryParamMap.get('authCode');
         if (authCode) {
             this.form.get('authCode')?.setValue(authCode);
-            this.stepper?.next();
         }
     }
 
@@ -82,13 +82,21 @@ export class LoginFlow implements AfterViewInit {
      * @param buffer - The scanned auth code
      */
     onQrScanned(buffer: string): void {
-        const match = buffer.match(/authCode=(\w+)$/);
+        const match = buffer.match(/authCode=(.+)$/);
+        console.log('Scanned QR code:', buffer);
+        this.showScanner.set(false);
         if (!match) {
-            this.qrErrorMessage.set('Scanned QR code is invalid');
+            this.qrErrorMessage.set('Error: Scanned QR code is invalid');
             return;
         }
         this.form.get('authCode')?.setValue(match[1]);
-        this.stepper?.next();
+        this.handleAutoSubmit();
+    }
+
+    private handleAutoSubmit(): void {
+        if (this.form.get('email')?.valid) {
+            this.submitForm();
+        }
     }
 
     /**
@@ -101,7 +109,7 @@ export class LoginFlow implements AfterViewInit {
         const { authCode, email } = this.form.value;
         this.login.submitLogin(authCode!, email!).subscribe({
             next: () => {
-                this.isSubmitting.set(false);
+                // this.isSubmitting.set(false);
             },
             error: (e) => {
                 this.submitErrorMessage.set(e);
@@ -121,6 +129,7 @@ export class LoginFlow implements AfterViewInit {
      * Retries the QR code scan by resetting the scanner and clearing any error messages
      */
     retryScan(): void {
+        this.showScanner.set(true);
         this.qrErrorMessage.set('');
         this.scanner?.reset();
     }
