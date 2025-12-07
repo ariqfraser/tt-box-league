@@ -1,7 +1,5 @@
-<div class="header">
-    <h1>Leaderboard</h1>
-    <app-icon [style.--size]="'2rem'">leaderboard</app-icon>
-</div>
+<app-page-header icon="leaderboard">Leaderboard</app-page-header>
+
 <table mat-table [dataSource]="(leaderboard$ | async) || []" class="mat-elevation-z8">
     <ng-container matColumnDef="rank">
         <th mat-header-cell *matHeaderCellDef></th>
