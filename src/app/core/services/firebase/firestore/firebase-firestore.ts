@@ -12,8 +12,8 @@ export class FirebaseFirestore {
     private readonly firestore = inject(Firestore);
 
     /**
-     *
      * @param path
+     * @returns Observable of collection data
      */
     getCollection<T>(path: string): Observable<T> {
         const ref = collection(this.firestore, path);
@@ -21,9 +21,8 @@ export class FirebaseFirestore {
     }
 
     /**
-     *
      * @param path
-     * @param id
+     * @returns Observable of document data
      */
     getDocument<T>(path: string): Observable<T> {
         const ref = collection(this.firestore, path);
