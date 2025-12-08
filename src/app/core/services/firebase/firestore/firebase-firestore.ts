@@ -1,5 +1,13 @@
 import { inject, Injectable } from '@angular/core';
-import { collection, collectionData, doc, docData, Firestore } from '@angular/fire/firestore';
+import {
+    collection,
+    collectionData,
+    doc,
+    docData,
+    Firestore,
+    query,
+    QueryConstraint,
+} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 /**
@@ -13,11 +21,16 @@ export class FirebaseFirestore {
 
     /**
      * @param path
+     * @param constraints
      * @returns Observable of collection data
      */
-    getCollection<T>(path: string): Observable<T> {
+    getCollection<T>(path: string, ...constraints: QueryConstraint[]): Observable<T> {
         const ref = collection(this.firestore, path);
-        return collectionData(ref) as Observable<T>;
+        if (constraints.length > 0) {
+            const queryRef = query(ref, ...constraints);
+            return collectionData(queryRef, { idField: 'documentId' }) as Observable<T>;
+        }
+        return collectionData(ref, { idField: 'documentId' }) as Observable<T>;
     }
 
     /**
