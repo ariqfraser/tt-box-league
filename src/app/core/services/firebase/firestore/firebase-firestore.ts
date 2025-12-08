@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { collection, collectionData, Firestore, query, Query } from '@angular/fire/firestore';
+import { collection, collectionData, doc, docData, Firestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 /**
@@ -25,8 +25,7 @@ export class FirebaseFirestore {
      * @returns Observable of document data
      */
     getDocument<T>(path: string): Observable<T> {
-        const ref = collection(this.firestore, path);
-        const docQuery: Query = query(ref);
-        return collectionData(docQuery, { idField: 'documentId' }) as Observable<T>;
+        const ref = doc(this.firestore, path);
+        return docData(ref, { idField: 'documentId' }) as Observable<T>;
     }
 }

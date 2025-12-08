@@ -4,4 +4,5 @@ import * as admin from 'firebase-admin';
 admin.initializeApp();
 
 // Export functions
-export { login } from './login/login.fn';
+export { login } from './src/login/login.fn';
+export { startNewSeason } from './src/admin/season-controls.fn';

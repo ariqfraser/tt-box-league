@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, signal } from '@angular/core';
+import { AfterViewInit, Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Log } from '@shared/utils/logger/logger.util';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { GlobalSettingsService } from './core/services/global-settings/global-settings.service';
 
 /**
  *
@@ -13,6 +14,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
     styleUrl: './app.scss',
 })
 export class App implements AfterViewInit {
+    private readonly globalSettings = inject(GlobalSettingsService);
     protected readonly title = signal('tt-box-league');
 
     /**
@@ -26,7 +28,9 @@ export class App implements AfterViewInit {
      *
      */
     ngAfterViewInit(): void {
-        // this.login.open();
+        this.globalSettings.getGlobalSettings().subscribe((settings) => {
+            Log.debug('Global settings:', settings);
+        });
         Log.debug('App component initialized');
     }
 }
