@@ -38,7 +38,7 @@ echo "✅ Verification code set to: test-code-123"
 echo ""
 
 echo "Starting emulators..."
-firebase emulators:start --only functions,firestore,auth,ui
+firebase emulators:start --only functions,firestore,auth,ui --import "./firebase-data"
 
 # Note: Functions emulator will automatically pick up code from functions/lib
 # which is built by npm run build in the functions directory

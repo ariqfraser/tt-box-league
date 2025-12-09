@@ -9,6 +9,7 @@ describe('BoxLeague', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [BoxLeague],
+            providers: [],
         }).compileComponents();
 
         fixture = TestBed.createComponent(BoxLeague);

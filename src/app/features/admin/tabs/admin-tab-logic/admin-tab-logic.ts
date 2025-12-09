@@ -16,9 +16,9 @@ export class AdminTabLogic {
      */
     generateBoxLeague(): void {
         const users: Partial<User>[] = [
-            { name: 'Alice', username: 'alice123', id: '1' },
-            { name: 'Bob', username: 'bob456', id: '2' },
-            { name: 'Charlie', username: 'charlie789', id: '3' },
+            { name: 'Alice', username: 'alice123', documentId: '1' },
+            { name: 'Bob', username: 'bob456', documentId: '2' },
+            { name: 'Charlie', username: 'charlie789', documentId: '3' },
         ];
         console.log('Generating box league with users:', users);
     }

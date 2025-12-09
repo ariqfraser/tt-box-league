@@ -3,7 +3,8 @@ import { FirebaseFirestore } from '../firebase/firestore/firebase-firestore';
 import { Observable, shareReplay } from 'rxjs';
 
 interface GlobalSettings {
-    currentSeason: string;
+    currentSeason: number;
+    playersPerBox: number;
 }
 
 /**

@@ -4,7 +4,7 @@ import { Timestamp } from '@angular/fire/firestore';
  * Interface representing a match document
  */
 export interface Match {
-    id: string;
+    documentId: string;
     p1Id: string;
     p2Id: string;
     p1Score: number;

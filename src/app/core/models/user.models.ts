@@ -6,7 +6,7 @@ export type UserId = string;
  * Interface representing a user document
  */
 export interface User {
-    id: UserId;
+    documentId: UserId;
     name: string;
     username: string;
     joinDate: Timestamp;

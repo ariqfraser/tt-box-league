@@ -19,7 +19,7 @@ export class FirebaseFunctions {
      */
     call<Response, Request>(
         name: string,
-        data: Request,
+        data?: Request,
     ): Observable<HttpsCallableResult<Response>> {
         const callable = httpsCallable(this.functions, name);
         return from(callable(data) as Promise<HttpsCallableResult<Response>>);

@@ -1,0 +1,94 @@
+{
+    "kind": "identitytoolkit#DownloadAccountResponse",
+    "users": [
+        {
+            "localId": "MYxYyELizuGsWsLB5szzkXW0a8qX",
+            "createdAt": "1765205603601",
+            "lastLoginAt": "1765205603626",
+            "displayName": "ariq",
+            "passwordHash": "fakeHash:salt=fakeSaltI1OafjZBZBWxQ1Oc85qK:password=test-code-123",
+            "salt": "fakeSaltI1OafjZBZBWxQ1Oc85qK",
+            "passwordUpdatedAt": 1765207677906,
+            "providerUserInfo": [
+                {
+                    "providerId": "password",
+                    "email": "ariq@computershare.co.uk",
+                    "federatedId": "ariq@computershare.co.uk",
+                    "rawId": "ariq@computershare.co.uk",
+                    "displayName": "ariq"
+                }
+            ],
+            "validSince": "1765207677",
+            "email": "ariq@computershare.co.uk",
+            "emailVerified": true,
+            "disabled": false
+        },
+        {
+            "localId": "VwYL1O717y18TkTeNsXeoxeQ6gq5",
+            "createdAt": "1765205610651",
+            "lastLoginAt": "1765205610670",
+            "displayName": "cj",
+            "passwordHash": "fakeHash:salt=fakeSaltl5AI8hqqfmgdtH86ed6c:password=test-code-123",
+            "salt": "fakeSaltl5AI8hqqfmgdtH86ed6c",
+            "passwordUpdatedAt": 1765207677907,
+            "providerUserInfo": [
+                {
+                    "providerId": "password",
+                    "email": "cj@computershare.co.uk",
+                    "federatedId": "cj@computershare.co.uk",
+                    "rawId": "cj@computershare.co.uk",
+                    "displayName": "cj"
+                }
+            ],
+            "validSince": "1765207677",
+            "email": "cj@computershare.co.uk",
+            "emailVerified": true,
+            "disabled": false
+        },
+        {
+            "localId": "e7YQ3k8m3IPN10H7Ey8fYaKZDAQO",
+            "createdAt": "1765205598622",
+            "lastLoginAt": "1765205598849",
+            "displayName": "franky",
+            "passwordHash": "fakeHash:salt=fakeSaltgQ2PDeZrSBbeTrVGslR3:password=test-code-123",
+            "salt": "fakeSaltgQ2PDeZrSBbeTrVGslR3",
+            "passwordUpdatedAt": 1765207677907,
+            "providerUserInfo": [
+                {
+                    "providerId": "password",
+                    "email": "franky@computershare.co.uk",
+                    "federatedId": "franky@computershare.co.uk",
+                    "rawId": "franky@computershare.co.uk",
+                    "displayName": "franky"
+                }
+            ],
+            "validSince": "1765207677",
+            "email": "franky@computershare.co.uk",
+            "emailVerified": true,
+            "disabled": false
+        },
+        {
+            "localId": "qVhnrOrCLgQ8ENCJG7as3W17GKJU",
+            "createdAt": "1765205620516",
+            "lastLoginAt": "1765207834499",
+            "displayName": "claire",
+            "passwordHash": "fakeHash:salt=fakeSaltTqrYjFnBjVUFN7nkFkmt:password=test-code-123",
+            "salt": "fakeSaltTqrYjFnBjVUFN7nkFkmt",
+            "passwordUpdatedAt": 1765207677907,
+            "providerUserInfo": [
+                {
+                    "providerId": "password",
+                    "email": "claire@computershare.co.uk",
+                    "federatedId": "claire@computershare.co.uk",
+                    "rawId": "claire@computershare.co.uk",
+                    "displayName": "claire"
+                }
+            ],
+            "validSince": "1765207677",
+            "email": "claire@computershare.co.uk",
+            "emailVerified": true,
+            "disabled": false,
+            "lastRefreshAt": "2025-12-08T15:30:34.499Z"
+        }
+    ]
+}

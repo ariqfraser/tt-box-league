@@ -1,1 +1,3 @@
-<!-- <app-league-box></app-league-box> -->
+@for (box of boxes(); track $index) {
+    <app-league-box [matches]="box" currentUserId=""></app-league-box>
+}

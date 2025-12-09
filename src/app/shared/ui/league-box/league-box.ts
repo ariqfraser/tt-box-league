@@ -33,7 +33,7 @@ export class LeagueBox {
     }
 
     protected handleClick(playerA: string, playerB: string): void {
-        const { id: matchId } = this.findMatchFromPlayers(playerA, playerB);
+        const { documentId: matchId } = this.findMatchFromPlayers(playerA, playerB);
         this.addScore.emit(matchId);
     }
 
