@@ -6,7 +6,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Scanner } from '@app/shared/ui/scanner/scanner';
 import { LoginFlowService } from './login-flow.service';
 import { Input } from '@shared/ui/input/input';
@@ -38,6 +38,7 @@ export class LoginFlow implements AfterViewInit {
     private readonly login = inject(LoginFlowService);
     private readonly formBuilder = inject(FormBuilder);
     private readonly route = inject(ActivatedRoute);
+    private readonly router = inject(Router);
 
     protected readonly form = this.formBuilder.group({
         authCode: ['', Validators.required],
@@ -63,6 +64,8 @@ export class LoginFlow implements AfterViewInit {
      */
     ngAfterViewInit(): void {
         this.populateAuthCodeFromQuery();
+        this.populateAuthCodeFromCookie();
+        this.handleAutoSubmit();
         this.populateEmailFromStorage();
     }
 
@@ -74,6 +77,13 @@ export class LoginFlow implements AfterViewInit {
         const authCode = this.route.snapshot.queryParamMap.get('authCode');
         if (authCode) {
             this.form.get('authCode')?.setValue(authCode);
+        }
+    }
+
+    private populateAuthCodeFromCookie(): void {
+        const existingAuthCode = this.login.getExistingAuthCode();
+        if (existingAuthCode) {
+            this.form.get('authCode')?.setValue(existingAuthCode);
         }
     }
 
@@ -94,7 +104,7 @@ export class LoginFlow implements AfterViewInit {
     }
 
     private handleAutoSubmit(): void {
-        if (this.form.get('email')?.valid) {
+        if (this.form.valid) {
             this.submitForm();
         }
     }
@@ -109,7 +119,7 @@ export class LoginFlow implements AfterViewInit {
         const { authCode, email } = this.form.value;
         this.login.submitLogin(authCode!, email!).subscribe({
             next: () => {
-                // this.isSubmitting.set(false);
+                this.router.navigate(['/']);
             },
             error: (e) => {
                 this.submitErrorMessage.set(e);

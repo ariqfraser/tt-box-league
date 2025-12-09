@@ -6,6 +6,7 @@ import {
     user,
     UserCredential,
     signInWithEmailAndPassword,
+    signOut,
 } from '@angular/fire/auth';
 import { Log } from '@app/shared/utils/logger/logger.util';
 import { catchError, from, Observable, Subscription, throwError } from 'rxjs';
@@ -43,6 +44,15 @@ export class FirebaseAuth implements OnDestroy {
                 return throwError(() => new Error('Anonymous sign-in failed'));
             }),
         );
+    }
+
+    /**
+     * handles user sign-out
+     */
+    signOut(): void {
+        signOut(this.auth).catch((e) => {
+            Log.error('Error during sign-out:', e);
+        });
     }
 
     /**
