@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { FirebaseAuth } from '@app/core/services/firebase/auth/firebase-auth';
+import { FirebaseAuth } from '@core/services/firebase/auth/firebase-auth';
 
 /**
  *

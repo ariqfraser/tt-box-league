@@ -1,4 +1,4 @@
-import { Match } from '@app/core/models/match.models';
+import { Match } from '@core/models/match.models';
 
 export const premadeMatches: Match[] = [
     {

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { FirebaseFunctions } from '@app/core/services/firebase/functions/firebase-functions';
-import { Log } from '@app/shared/utils/logger/logger.util';
+import { FirebaseFunctions } from '@core/services/firebase/functions/firebase-functions';
+import { Log } from '@shared/utils/logger/logger.util';
 
 /**
  *

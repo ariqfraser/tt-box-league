@@ -1,6 +1,6 @@
 import { computed, inject, Injectable } from '@angular/core';
-import { Match } from '@app/core/models/match.models';
-import { MatchesService } from '@app/core/services/matches/matches.service';
+import { Match } from '@core/models/match.models';
+import { MatchesService } from '@core/services/matches/matches.service';
 
 /**
  *

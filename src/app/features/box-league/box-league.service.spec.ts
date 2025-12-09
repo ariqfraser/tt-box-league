@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 
 import { BoxLeagueService } from './box-league.service';
-import { MatchesService } from '@app/core/services/matches/matches.service';
+import { MatchesService } from '@core/services/matches/matches.service';
 import { signal, WritableSignal } from '@angular/core';
-import { Match } from '@app/core/models/match.models';
+import { Match } from '@core/models/match.models';
 
 describe('BoxLeagueService', () => {
     let service: BoxLeagueService;

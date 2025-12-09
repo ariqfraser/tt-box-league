@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { User } from '@app/core/models/user.models';
-import { FirebaseFirestore } from '@core/services/firebase/firestore/firebase-firestore';
-import { Observable, shareReplay } from 'rxjs';
+import { User } from '@core/models/user.models';
+import { FirestoreAccess } from '@core/services/firebase/firestore-access/firestore-access';
+import { Observable } from 'rxjs';
 
 /**
  *
@@ -10,13 +10,13 @@ import { Observable, shareReplay } from 'rxjs';
     providedIn: 'root',
 })
 export class LeaderboardService {
-    private readonly firestore = inject(FirebaseFirestore);
+    private readonly firestoreAccess = inject(FirestoreAccess);
 
     /**
      *
      * @returns all users for the leaderboard
      */
     getLeaderboardData(): Observable<User[]> {
-        return this.firestore.getCollection<User[]>('users').pipe(shareReplay(1));
+        return this.firestoreAccess.getUsers();
     }
 }

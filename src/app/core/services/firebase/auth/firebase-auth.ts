@@ -8,7 +8,7 @@ import {
     signInWithEmailAndPassword,
     signOut,
 } from '@angular/fire/auth';
-import { Log } from '@app/shared/utils/logger/logger.util';
+import { Log } from '@shared/utils/logger/logger.util';
 import { catchError, from, Observable, Subscription, throwError } from 'rxjs';
 
 /**

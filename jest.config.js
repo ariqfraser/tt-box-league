@@ -19,7 +19,6 @@ module.exports = {
         '!src/testing/**',
     ],
     moduleNameMapper: {
-        '@app/(.*)': '<rootDir>/src/app/$1',
         '@env/(.*)': '<rootDir>/src/environments/$1',
         '@public/(.*)': '<rootDir>/public/$1',
         '@shared/(.*)': '<rootDir>/src/app/shared/$1',

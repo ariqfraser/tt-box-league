@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { FirebaseAuth } from './firebase-auth';
 import { Auth } from '@angular/fire/auth';
-import { Log } from '@app/shared/utils/logger/logger.util';
+import { Log } from '@shared/utils/logger/logger.util';
 
 describe('FirebaseAuth', () => {
     let service: FirebaseAuth;

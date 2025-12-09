@@ -1,7 +1,7 @@
 import { Component, computed, input, output } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { Match } from '@app/core/models/match.models';
+import { Match } from '@core/models/match.models';
 
 /**
  *

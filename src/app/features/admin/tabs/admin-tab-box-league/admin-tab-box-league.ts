@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { Match } from '@app/core/models/match.models';
-import { LeagueBox } from '@app/shared/ui/league-box/league-box';
+import { Match } from '@core/models/match.models';
+import { LeagueBox } from '@shared/ui/league-box/league-box';
 import { premadeMatches } from './admin-tab-box-league.const';
-import { Log } from '@app/shared/utils/logger/logger.util';
+import { Log } from '@shared/utils/logger/logger.util';
 
 /**
  *

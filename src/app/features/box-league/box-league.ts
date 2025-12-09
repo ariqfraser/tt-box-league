@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { BoxLeagueService } from './box-league.service';
-import { Log } from '@app/shared/utils/logger/logger.util';
-import { LeagueBox } from '@app/shared/ui/league-box/league-box';
+import { Log } from '@shared/utils/logger/logger.util';
+import { LeagueBox } from '@shared/ui/league-box/league-box';
 
 /**
  *

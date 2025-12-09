@@ -6,7 +6,7 @@ const logMock = {
     warn: jest.fn(),
 };
 
-jest.mock('@app/shared/utils/logger/logger.util', () => {
+jest.mock('@shared/utils/logger/logger.util', () => {
     return { Log: logMock, __esModule: true };
 });
 

@@ -3,7 +3,7 @@ import { LeaderboardService } from './leaderboard.service';
 import { catchError, map, of, tap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
-import { PageHeader } from '@app/shared/ui/page-header/page-header';
+import { PageHeader } from '@shared/ui/page-header/page-header';
 
 /**
  *  leaderboard feature component

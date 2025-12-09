@@ -7,10 +7,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Scanner } from '@app/shared/ui/scanner/scanner';
+import { Scanner } from '@shared/ui/scanner/scanner';
 import { LoginFlowService } from './login-flow.service';
 import { Input } from '@shared/ui/input/input';
-import { Icon } from '@app/shared/ui/icon/icon';
+import { Icon } from '@shared/ui/icon/icon';
 
 /**
  *

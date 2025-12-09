@@ -17,7 +17,6 @@
         "module": "preserve",
         "baseUrl": "./",
         "paths": {
-            "@app/*": ["src/app/*"],
             "@public/*": ["public/*"],
             "@env/*": ["src/environments/*"],
             "@shared/*": ["src/app/shared/*"],

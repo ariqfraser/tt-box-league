@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GlobalSettingsService } from './global-settings.service';
+import { Cache } from './cache';
 
-describe('GlobalSettingsService', () => {
-    let service: GlobalSettingsService;
+describe('Cache', () => {
+    let service: Cache;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});
-        service = TestBed.inject(GlobalSettingsService);
+        service = TestBed.inject(Cache);
     });
 
     it('should be created', () => {

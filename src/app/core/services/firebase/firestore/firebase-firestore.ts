@@ -20,22 +20,24 @@ export class FirebaseFirestore {
     private readonly firestore = inject(Firestore);
 
     /**
-     * @param path
-     * @param constraints
-     * @returns Observable of collection data
+     * Retrieves a collection from Firestore.
+     * @param path The path to the collection.
+     * @param constraints Optional query constraints to filter the collection.
+     * @returns Observable emitting an array of collection documents.
      */
-    getCollection<T>(path: string, ...constraints: QueryConstraint[]): Observable<T> {
+    getCollection<T>(path: string, ...constraints: QueryConstraint[]): Observable<T[]> {
         const ref = collection(this.firestore, path);
         if (constraints.length > 0) {
             const queryRef = query(ref, ...constraints);
-            return collectionData(queryRef, { idField: 'documentId' }) as Observable<T>;
+            return collectionData(queryRef, { idField: 'documentId' }) as Observable<T[]>;
         }
-        return collectionData(ref, { idField: 'documentId' }) as Observable<T>;
+        return collectionData(ref, { idField: 'documentId' }) as Observable<T[]>;
     }
 
     /**
-     * @param path
-     * @returns Observable of document data
+     * Retrieves a single document from Firestore.
+     * @param path The path to the document.
+     * @returns Observable emitting the document data.
      */
     getDocument<T>(path: string): Observable<T> {
         const ref = doc(this.firestore, path);
