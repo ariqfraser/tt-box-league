@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Cache } from '../../cache/cache';
 import { FirebaseFirestore } from '../firestore/firebase-firestore';
-import { Observable, switchMap } from 'rxjs';
+import { Observable, switchMap, tap } from 'rxjs';
 import { User } from '@core/models/user.models';
 import { Match } from '@core/models/match.models';
 import { FirestoreAccessKey } from './firestore-access.enum';
@@ -19,14 +19,19 @@ export class FirestoreAccess {
     private readonly cache = inject(Cache);
     private readonly firestore = inject(FirebaseFirestore);
 
+    readonly _usersMap = new Map<string, User>();
+
     /**
      * Retrieves all users from Firestore with caching.
+     * Populates internal users map for fast player name lookups.
      * @returns Cached observable of all users.
      */
     getUsers(): Observable<User[]> {
         return this.cache.use<User[]>(
             FirestoreAccessKey.USERS,
-            this.firestore.getCollection<User>('users'),
+            this.firestore
+                .getCollection<User>('users')
+                .pipe(tap((users) => this.populateUsersMap(users))),
         );
     }
 
@@ -58,5 +63,28 @@ export class FirestoreAccess {
                 ),
             ),
         );
+    }
+
+    /**
+     * Retrieves a player's name by their user ID.
+     * Uses cached users map for O(1) lookup. Falls back to null if player not found.
+     * @param playerId - The user ID (Firebase Auth UID) of the player.
+     * @returns The player's display name, or null if not found.
+     */
+    getPlayerName(playerId: string): string | null {
+        const user = this._usersMap.get(playerId);
+        return user?.name ?? null;
+    }
+
+    /**
+     * Populates the internal users map for fast player name lookups.
+     * Called automatically when users are fetched.
+     * @param users - Array of users to populate the map with.
+     */
+    private populateUsersMap(users: User[]): void {
+        this._usersMap.clear();
+        for (const user of users) {
+            this._usersMap.set(user.documentId, user);
+        }
     }
 }

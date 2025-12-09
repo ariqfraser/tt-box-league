@@ -1,7 +1,8 @@
-import { Component, computed, input, output } from '@angular/core';
+import { Component, computed, inject, input, output } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { Match } from '@core/models/match.models';
+import { FirestoreAccess } from '@core/services/firebase/firestore-access/firestore-access';
 
 /**
  *
@@ -13,6 +14,8 @@ import { Match } from '@core/models/match.models';
     styleUrl: './league-box.scss',
 })
 export class LeagueBox {
+    private firestoreAccess = inject(FirestoreAccess);
+
     readonly matches = input.required<Match[]>();
     readonly currentUserId = input.required<string>();
     /** Outputs the target matchId the users wants to add a score  */
@@ -35,6 +38,10 @@ export class LeagueBox {
     protected handleClick(playerA: string, playerB: string): void {
         const { documentId: matchId } = this.findMatchFromPlayers(playerA, playerB);
         this.addScore.emit(matchId);
+    }
+
+    protected getPlayerName(playerId: string): string {
+        return this.firestoreAccess.getPlayerName(playerId) ?? 'Unknown Player';
     }
 
     private findMatchFromPlayers(playerA: string, playerB: string): Match {

@@ -3,29 +3,30 @@
         <div class="box" [style.--player-count]="playerIds().length + 1">
             <div class="cell empty border-bottom header border-right"></div>
             @for (playerId of playerIds(); track playerId) {
-                <div class="cell header border-bottom">{{ playerId }}</div>
+                <div class="cell header border-bottom">{{ getPlayerName(playerId) }}</div>
             }
             @for (rowId of playerIds(); track rowId; let colI = $index) {
                 @for (columnId of playerIds(); track columnId; let rowI = $index) {
                     @if (rowI === 0) {
-                        <div class="cell header border-right">{{ rowId }}</div>
+                        <div class="cell header border-right">{{ getPlayerName(rowId) }}</div>
                     }
 
                     @if (columnId === rowId) {
                         <div class="cell empty"></div>
                     } @else {
-                        @if(hasMatchConcluded(columnId, rowId)) {
-                            <div class="cell">{{ columnId }} 👑</div>
+                        @if (hasMatchConcluded(columnId, rowId)) {
+                            <div class="cell">{{ getPlayerName(columnId) }} 👑</div>
                         } @else {
-                            @if(columnId === currentUserId() || rowId === currentUserId()) {
+                            @if (columnId === currentUserId() || rowId === currentUserId()) {
                                 <div class="cell">
-                                    <button matButton (click)="handleClick(columnId, rowId)">Add score</button>
+                                    <button matButton (click)="handleClick(columnId, rowId)">
+                                        Add score
+                                    </button>
                                 </div>
-                                
-                            } @else {<div class="cell pending"><span>pending...</span></div>}
-                            
+                            } @else {
+                                <div class="cell pending"><span>pending...</span></div>
+                            }
                         }
-                        
                     }
                 }
             }
