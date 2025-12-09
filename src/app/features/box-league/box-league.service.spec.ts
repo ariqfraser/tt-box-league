@@ -2,8 +2,10 @@ import { TestBed } from '@angular/core/testing';
 
 import { BoxLeagueService } from './box-league.service';
 import { MatchesService } from '@core/services/matches/matches.service';
+import { FirestoreAccess } from '@core/services/firebase/firestore-access/firestore-access';
 import { signal, WritableSignal } from '@angular/core';
 import { Match } from '@core/models/match.models';
+import { of } from 'rxjs';
 
 describe('BoxLeagueService', () => {
     let service: BoxLeagueService;
@@ -15,7 +17,15 @@ describe('BoxLeagueService', () => {
         };
 
         TestBed.configureTestingModule({
-            providers: [{ provide: MatchesService, useValue: matchesServiceMock }],
+            providers: [
+                { provide: MatchesService, useValue: matchesServiceMock },
+                {
+                    provide: FirestoreAccess,
+                    useValue: {
+                        getUsers: () => of([]),
+                    },
+                },
+            ],
         });
         service = TestBed.inject(BoxLeagueService);
     });

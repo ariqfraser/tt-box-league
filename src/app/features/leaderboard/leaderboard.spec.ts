@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { Leaderboard } from './leaderboard';
+import { LeaderboardService } from './leaderboard.service';
+import { of } from 'rxjs';
 
 describe('Leaderboard', () => {
     let component: Leaderboard;
@@ -9,6 +10,14 @@ describe('Leaderboard', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [Leaderboard],
+            providers: [
+                {
+                    provide: LeaderboardService,
+                    useValue: {
+                        getLeaderboardData: () => of([]),
+                    },
+                },
+            ],
         }).compileComponents();
 
         fixture = TestBed.createComponent(Leaderboard);

@@ -5,7 +5,7 @@ import { StorageService } from './storage.service';
 
 describe('StorageService', () => {
     let service: StorageService;
-    const schemaKey: StorageSchemaKey = 'USERNAME';
+    const schemaKey: StorageSchemaKey = 'USER_EMAIL';
     const storageKey = StorageSchema[schemaKey].key;
 
     beforeEach(() => {
