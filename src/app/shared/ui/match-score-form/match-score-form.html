@@ -1,0 +1,20 @@
+<div
+    class="container"
+    [style.transform]="'translateX(' + dragOffset() + 'px)'"
+    [class.submitted-left]="submittedDirection() === 'left'"
+    [class.submitted-right]="submittedDirection() === 'right'">
+    <span class="name name-left" [class.highlight]="dragOffset() > 50">
+        {{ playerOneName() }}
+    </span>
+    <span class="instruction">
+        <app-icon size="1.5rem">swipe</app-icon>
+        <span>select winner</span>
+    </span>
+    <span class="name name-right" [class.highlight]="dragOffset() < -50">
+        {{ playerTwoName() }}
+    </span>
+</div>
+<div class="container background">
+    <app-icon size="2rem">trophy</app-icon>
+    <app-icon size="2rem">trophy</app-icon>
+</div>

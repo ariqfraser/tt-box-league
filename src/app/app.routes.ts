@@ -30,6 +30,11 @@ export const routes: Routes = [
                 path: 'admin',
                 loadComponent: () => import('@features/admin/admin').then((m) => m.Admin),
             },
+            {
+                path: 'matches',
+                loadComponent: () =>
+                    import('@features/match-history/match-history').then((m) => m.MatchHistory),
+            },
         ],
     },
     {

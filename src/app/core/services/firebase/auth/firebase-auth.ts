@@ -8,6 +8,7 @@ import {
     signInWithEmailAndPassword,
     signOut,
 } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 import { Log } from '@shared/utils/logger/logger.util';
 import { catchError, from, Observable, Subscription, throwError } from 'rxjs';
 
@@ -19,6 +20,7 @@ import { catchError, from, Observable, Subscription, throwError } from 'rxjs';
 })
 export class FirebaseAuth implements OnDestroy {
     private readonly auth = inject(Auth);
+    private readonly router = inject(Router);
     readonly authState$ = authState(this.auth);
     readonly user$ = user(this.auth);
     private authStateSub: Subscription;
@@ -30,6 +32,9 @@ export class FirebaseAuth implements OnDestroy {
         this.authStateSub = this.authState$.subscribe((state) => {
             // Handle user state changes if needed
             Log.debug('Auth state changed:', state);
+            if (!state) {
+                this.router.navigate(['/login']);
+            }
         });
     }
 

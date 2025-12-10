@@ -1,9 +1,7 @@
 import { computed, inject, Injectable } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { BoxMatch } from '@core/models/box.models';
-import { Match } from '@core/models/match.models';
 import { FirestoreAccess } from '@core/services/firebase/firestore-access/firestore-access';
-import { MatchesService } from '@core/services/matches/matches.service';
 import { combineLatest, map, Observable } from 'rxjs';
 
 /**
@@ -13,7 +11,6 @@ import { combineLatest, map, Observable } from 'rxjs';
     providedIn: 'root',
 })
 export class BoxLeagueService {
-    private readonly matchesService = inject(MatchesService);
     private readonly dataAccess = inject(FirestoreAccess);
 
     private readonly users$ = this.dataAccess.getUsers();
@@ -30,15 +27,15 @@ export class BoxLeagueService {
                     ...match,
                     p1Name: p1.name,
                     p2Name: p2.name,
-                };
+                } as BoxMatch;
             });
         }),
     );
     private readonly mappedMatches = toSignal(this.mappedMatches$, { initialValue: [] });
 
-    boxes = computed(() => {
+    boxes = computed<BoxMatch[][]>(() => {
         const matches = this.mappedMatches();
-        const boxes: Match[][] = [];
+        const boxes: BoxMatch[][] = [];
         for (const match of matches) {
             if (!boxes[match.box]) boxes[match.box] = [];
             boxes[match.box].push(match);

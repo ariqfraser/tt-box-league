@@ -1,1 +1,21 @@
-<p>dashboard works!</p>
+<app-page-header icon="dashboard">Dashboard</app-page-header>
+
+<!-- <h2>quick actions</h2>
+    <button matButton="tonal" class="quick-action">
+        <mat-icon>add</mat-icon>
+        <span>SUBMIT FREE PLAY RESULT</span>
+    </button> -->
+<h2>Pending league matches</h2>
+<mat-divider />
+
+@for (match of userMatches(); track match.documentId) {
+    <app-match-score-form
+        [playerOneName]="match.p1Name"
+        [playerOneId]="match.p1Id"
+        [playerTwoName]="match.p2Name"
+        [playerTwoId]="match.p2Id"
+        (winnerSelected)="matchScoreConfirmation($event)"></app-match-score-form>
+}
+
+<!-- <h2>My box</h2>
+<mat-divider /> -->

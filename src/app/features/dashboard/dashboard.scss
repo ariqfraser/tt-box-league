@@ -1,0 +1,28 @@
+@use 'theme' as *;
+
+h2 {
+    margin: 0.5rem;
+    margin-left: 5vw;
+    font-size: 1rem;
+    opacity: 0.7;
+}
+
+.quick-actions-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1fr;
+    gap: 1rem;
+    width: 90%;
+    margin-inline: auto;
+}
+
+.quick-action {
+    padding: 2rem;
+    background-color: var(--mat-sys-secondary-container);
+    border-radius: $r-m;
+    border: none;
+}
+
+mat-divider {
+    margin-bottom: 1rem;
+}
