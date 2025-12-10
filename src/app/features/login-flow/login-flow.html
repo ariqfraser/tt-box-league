@@ -43,8 +43,12 @@
                 @if (!authCodeDisplay()) {
                     <button matButton="outlined" (click)="retryScan()" class="button-scanner">
                         Scan QR Code
-                        <app-icon [style.--size]="'1rem'">qr_code</app-icon>
+                        <mat-icon>qr_code</mat-icon>
                     </button>
+                    <p class="description">
+                        The QR code can be found in the basement. Alternatively, an already
+                        logged-in user can find it under 'Account' &gt; 'Show auth code'.
+                    </p>
                 } @else {
                     <pre>Code: {{ authCodeDisplay() }}</pre>
                 }

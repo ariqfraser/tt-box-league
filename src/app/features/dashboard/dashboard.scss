@@ -26,3 +26,9 @@ h2 {
 mat-divider {
     margin-bottom: 1rem;
 }
+
+.pending-matches {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}

@@ -17,13 +17,18 @@ export class DashboardService {
 
     private readonly user = toSignal(this.auth.user$);
     userMatches = computed(() => {
-        return this.boxLeagueService
-            .boxes()
-            .filter((box) => {
-                return box.some(
-                    (match) => match.p1Id === this.user()?.uid || match.p2Id === this.user()?.uid,
-                );
-            })[0]
-            .filter(({ p1Id, p2Id }) => p1Id === this.user()?.uid || p2Id === this.user()?.uid);
+        return (
+            this.boxLeagueService
+                .boxes()
+                .filter((box) => {
+                    return box.some(
+                        (match) =>
+                            match.p1Id === this.user()?.uid || match.p2Id === this.user()?.uid,
+                    );
+                })[0]
+                ?.filter(
+                    ({ p1Id, p2Id }) => p1Id === this.user()?.uid || p2Id === this.user()?.uid,
+                ) ?? []
+        );
     });
 }
