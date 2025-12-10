@@ -1,5 +1,9 @@
 @use 'theme' as *;
 
+mat-card {
+    background-color: var(--mat-sys-surface-container-high);
+}
+
 .box {
     display: grid;
     grid-template-columns: repeat(var(--player-count), 1fr);

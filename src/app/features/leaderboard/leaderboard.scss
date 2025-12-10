@@ -1,3 +1,55 @@
+@use 'theme' as *;
+
 .table {
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+@mixin GridStyle {
+    display: grid;
+    grid-template-columns: 2rem 3fr 1fr 2fr;
+    gap: 1rem;
+    align-items: center;
+    width: 90%;
+    margin-inline: auto;
+}
+
+.header-row {
+    @include GridStyle;
+    font-weight: bold;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+
+    .elo {
+        text-align: center;
+    }
+}
+
+.player-container {
+    @include GridStyle;
+    background-color: var(--mat-sys-surface-container);
+    border-radius: $r-m;
+    padding: 1rem;
+    margin-inline: auto;
+
+    .rank {
+        font-weight: bold;
+        color: var(--mat-sys-on-surface-container);
+        width: 1rem;
+        text-align: center;
+    }
+
+    .name {
+        font-weight: 600;
+        color: var(--mat-sys-on-surface);
+        flex-grow: 1;
+    }
+
+    .elo {
+        width: 4rem;
+        text-align: center;
+        color: var(--mat-sys-primary);
+        font-weight: bold;
+    }
 }

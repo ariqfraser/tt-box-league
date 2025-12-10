@@ -31,6 +31,7 @@ describe('Admin', () => {
                     provide: FirestoreAccess,
                     useValue: {
                         getUsers: () => of([]),
+                        getPlayerName: (id: string) => id,
                     },
                 },
                 {

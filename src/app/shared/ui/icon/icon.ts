@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 
 /**
@@ -10,4 +10,6 @@ import { MatIcon } from '@angular/material/icon';
     templateUrl: './icon.html',
     styleUrl: './icon.scss',
 })
-export class Icon {}
+export class Icon {
+    readonly size = input('1rem');
+}

@@ -1,1 +1,8 @@
-<mat-icon class="material-symbols-rounded"><ng-content></ng-content></mat-icon>
+<mat-icon
+    class="material-symbols-rounded"
+    [style.fontSize]="size()"
+    [style.height]="size()"
+    [style.width]="size()"
+    [style.lineHeight]="size()">
+    <ng-content></ng-content>
+</mat-icon>

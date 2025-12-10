@@ -4,13 +4,25 @@ import { catchError, map, of, tap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { PageHeader } from '@shared/ui/page-header/page-header';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTabsModule } from '@angular/material/tabs';
+import { Icon } from '@shared/ui/icon/icon';
 
 /**
  *  leaderboard feature component
  */
 @Component({
     selector: 'app-leaderboard',
-    imports: [AsyncPipe, MatTableModule, PageHeader],
+    imports: [
+        AsyncPipe,
+        MatTableModule,
+        PageHeader,
+        MatIconModule,
+        MatButtonModule,
+        MatTabsModule,
+        Icon,
+    ],
     templateUrl: './leaderboard.html',
     styleUrl: './leaderboard.scss',
 })
