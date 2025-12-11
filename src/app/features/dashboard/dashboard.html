@@ -24,7 +24,7 @@
             [playerTwoId]="match.p2Id"
             [matchId]="match.documentId"
             (winnerSelected)="matchScoreConfirmation($event)"></app-match-score-form>
+    } @empty {
+        <p class="no-data">You have no pending league matches.</p>
     }
 </div>
-<!-- <h2>My box</h2>
-<mat-divider /> -->

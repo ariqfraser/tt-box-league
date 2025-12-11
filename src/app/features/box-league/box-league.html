@@ -2,4 +2,6 @@
 
 @for (box of boxes(); track $index) {
     <app-league-box [matches]="box" currentUserId=""></app-league-box>
+} @empty {
+    <p class="no-data">The season hasn't started yet.</p>
 }
