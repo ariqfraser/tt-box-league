@@ -18,11 +18,16 @@ export class MatchScoreForm {
     readonly playerOneId = input.required<string>();
     readonly playerTwoName = input.required<string>();
     readonly playerTwoId = input.required<string>();
+    readonly matchId = input.required<string>();
 
     protected readonly dragOffset = signal(0);
     protected readonly isSubmitted = signal(false);
     protected readonly submittedDirection = signal<SwipeDirection>(null);
-    protected readonly winnerSelected = output<string>();
+    protected readonly winnerSelected = output<{
+        name: string;
+        matchId: string;
+        winnerId: string;
+    }>();
 
     private touchStartX = 0;
     private touchStartY = 0;
@@ -86,9 +91,13 @@ export class MatchScoreForm {
         this.submittedDirection.set(direction);
 
         const winnerId = direction === 'left' ? this.playerTwoId() : this.playerOneId();
-
+        const winnerName = direction === 'left' ? this.playerTwoName() : this.playerOneName();
         if (winnerId) {
-            this.winnerSelected.emit(winnerId);
+            this.winnerSelected.emit({
+                matchId: this.matchId(),
+                name: winnerName,
+                winnerId: winnerId,
+            });
         } else {
             console.warn('No winner ID found for direction:', direction);
         }

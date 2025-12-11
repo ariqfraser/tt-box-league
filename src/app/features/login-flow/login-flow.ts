@@ -10,7 +10,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Scanner } from '@shared/ui/scanner/scanner';
 import { LoginFlowService } from './login-flow.service';
 import { Input } from '@shared/ui/input/input';
-import { Icon } from '@shared/ui/icon/icon';
 import { MatIconModule } from '@angular/material/icon';
 
 /**
@@ -29,7 +28,6 @@ import { MatIconModule } from '@angular/material/icon';
         Scanner,
         Input,
         MatIconModule,
-        Icon,
     ],
     templateUrl: './login-flow.html',
     styleUrl: './login-flow.scss',

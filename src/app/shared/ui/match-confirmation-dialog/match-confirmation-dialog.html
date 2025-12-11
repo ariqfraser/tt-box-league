@@ -1,1 +1,15 @@
-<p>match-confirmation-dialog works!</p>
+<h2 mat-dialog-title>Is this correct?</h2>
+<mat-dialog-content>
+    <p>
+        <b>Don't be a bad sport, do the right thing.</b>
+        This will submit the result for both you and your opponent.
+    </p>
+
+    <div class="match-info">
+        <p>Winner: {{ winner }}</p>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button matButton="text" [mat-dialog-close]="false">Cancel</button>
+    <button matButton="filled" color="primary" [mat-dialog-close]="true">Confirm</button>
+</mat-dialog-actions>

@@ -8,6 +8,13 @@
 <h2>Pending league matches</h2>
 <mat-divider />
 
+<p class="description">
+    Swipe left or right to select the winner of each match.
+    <br />
+    <span class="highlight">Note:</span>
+    You can only submit results for matches that are assigned to you.
+</p>
+
 <div class="pending-matches">
     @for (match of userMatches(); track match.documentId) {
         <app-match-score-form
@@ -15,6 +22,7 @@
             [playerOneId]="match.p1Id"
             [playerTwoName]="match.p2Name"
             [playerTwoId]="match.p2Id"
+            [matchId]="match.documentId"
             (winnerSelected)="matchScoreConfirmation($event)"></app-match-score-form>
     }
 </div>

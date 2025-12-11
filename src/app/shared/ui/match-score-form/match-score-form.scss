@@ -35,7 +35,7 @@
         margin-left: 5vw;
     }
 
-    background-color: var(--mat-sys-surface-container);
+    background-color: var(--mat-sys-secondary-container);
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
@@ -86,7 +86,7 @@
 }
 
 .background {
-    background-color: rgb(57, 201, 62);
+    background-color: var(--mat-sys-primary);
     display: flex;
     justify-content: space-between;
     width: 90vw;
