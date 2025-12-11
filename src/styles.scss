@@ -48,3 +48,11 @@ body {
 p.firebase-emulator-warning {
     display: none;
 }
+
+p.no-data {
+    text-align: center;
+    margin: 1rem 0;
+    font: var(--mat-sys-body-medium);
+    font-weight: bold;
+    opacity: 0.6;
+}
